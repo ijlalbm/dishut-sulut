@@ -1,10 +1,10 @@
 import ComponentCard from "@/components/common/ComponentCard";
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
-import PerhutananSosialTable from "@/components/perhutanan-sosial/PerhutananSosialTable";
+import FormCreate from "@/components/perhutanan-sosial/FormCreate";
 import Button from "@/components/ui/button/Button";
 import { Metadata } from "next";
-import React from "react";
 import Link from "next/link";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "Next.js Basic Table | TailAdmin - Next.js Dashboard Template",
@@ -18,15 +18,18 @@ export default function BasicTables() {
     <div>
       <PageBreadcrumb pageTitle="Perhutanan Sosial" />
       <div className="space-y-6">
-        <ComponentCard title="Tabel Perhutanan Sosial">
+        <ComponentCard title="Tambah Data Perhutanan Sosial">
+
           <div className="mb-6 flex justify-end">
-            <Link href="/perhutanan-sosial/create">
-              <Button variant="primary">
-                Tambah Data
-              </Button>
+            <Link href="/perhutanan-sosial">
+                <Button variant="outline">Kembali</Button>
             </Link>
           </div>
-          <PerhutananSosialTable />
+
+          <div>
+            <FormCreate />
+          </div>
+          
         </ComponentCard>
       </div>
     </div>
