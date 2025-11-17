@@ -38,6 +38,20 @@ const navItems: NavItem[] = [
     path: "/perhutanan-sosial",
   },
   {
+    name: "Data FLora",
+    icon: <TableIcon />,
+    path: "/data-flora",
+  },
+  {
+    name: "Data Fauna",
+    icon: <TableIcon />,
+    path: "/data-fauna",
+  },
+  
+];
+
+const othersItems: NavItem[] = [
+  {
     icon: <CalenderIcon />,
     name: "Calendar",
     path: "/calendar",
@@ -66,9 +80,6 @@ const navItems: NavItem[] = [
       { name: "404 Error", path: "/error-404", pro: false },
     ],
   },
-];
-
-const othersItems: NavItem[] = [
   {
     icon: <PieChartIcon />,
     name: "Charts",
@@ -105,7 +116,7 @@ const AppSidebar: React.FC = () => {
 
   const renderMenuItems = (
     navItems: NavItem[],
-    menuType: "main" | "others"
+    menuType: "main" | "others"  
   ) => (
     <ul className="flex flex-col gap-4">
       {navItems.map((nav, index) => (
