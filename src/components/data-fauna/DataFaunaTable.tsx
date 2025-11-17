@@ -162,14 +162,13 @@ export default function DataFaunaTable() {
                   isHeader
                   className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
                 >
-                  Tipe Vegetasi
+                  Kelompok Fauna
                 </TableCell>
-
                 <TableCell
                   isHeader
                   className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
                 >
-                  Jumlah Kerapatan
+                  Habitat Utama
                 </TableCell>
 
                 <TableCell
@@ -190,19 +189,13 @@ export default function DataFaunaTable() {
                   isHeader
                   className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
                 >
+                  Pola Aktivitas
+                </TableCell>
+                <TableCell
+                  isHeader
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                >
                   Foto
-                </TableCell>
-                <TableCell
-                  isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
-                >
-                  Manfaat Ekologi
-                </TableCell>
-                <TableCell
-                  isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
-                >
-                  Manfaat Ekonomi
                 </TableCell>
                 <TableCell
                   isHeader
