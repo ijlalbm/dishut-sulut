@@ -118,7 +118,7 @@ const tableData: Order[] = [
   },
 ];
 
-export default function PerhutananSosialTable() {
+export default function KarhutlaTable() {
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
       <div className="max-w-full overflow-x-auto">
@@ -136,109 +136,65 @@ export default function PerhutananSosialTable() {
                 <TableCell
                   isHeader
                   className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
-                >Nama Lembaga</TableCell>
-                <TableCell
-                  isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
                 >
-                  Nomor SK
+                  Kabupaten/Kota
                 </TableCell>
 
                 <TableCell
                   isHeader
                   className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
                 >
-                  Tanggal SK
+                  Kecamatan
                 </TableCell>
 
                 <TableCell
                   isHeader
                   className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
                 >
-                  Desa-Kec-Kab
+                  Desa/Kelurahan
+                </TableCell>
+                <TableCell
+                  isHeader
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                >
+                  Koordinat Lokasi (UTM)
+                </TableCell>
+                <TableCell
+                  isHeader
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                >
+                  Kawasan hutan lindung , hutan produksi, apl, lainnya
+                </TableCell>
+                <TableCell
+                  isHeader
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                >
+                  Akses Lokasi Mudah, Sedang, Sulit
                 </TableCell>
 
                 <TableCell
                   isHeader
                   className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
                 >
-                  Skema
-                </TableCell>
-
-                <TableCell
-                  isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
-                >
-                  Luas Areal
-                </TableCell>
-
-                <TableCell
-                  isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
-                >
-                  Jumlah Anggota
-                </TableCell>
-
-                <TableCell
-                  isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
-                >
-                  Nama Ketua
-                </TableCell>
-
-                <TableCell
-                  isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
-                >
-                  Nama KPH
+                  Jenis Lahan (Terbakar Hutan / Semak Belukar / Gambut / Kebun / Pertanian / Lainnya)
                 </TableCell>
                 <TableCell
                   isHeader
                   className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
                 >
-                  Daftar Hasil Produk Kelompok
+                  Luas Lahan Terbakar (Ha)
                 </TableCell>
                 <TableCell
                   isHeader
                   className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
                 >
-                  Daftar Fasilitas
+                  Tingkat Keparahan (Ringan / Sedang / Berat)
                 </TableCell>
                 <TableCell
                   isHeader
                   className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
                 >
-                  Galeri
-                </TableCell>
-                <TableCell
-                  isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
-                >
-                  Upload Dokumen SK
-                </TableCell>
-                <TableCell
-                  isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
-                >
-                  Nama KUPS
-                </TableCell>
-                <TableCell
-                  isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
-                >
-                  NO SK KUPS
-                </TableCell>
-                <TableCell
-                  isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
-                >
-                  Komoditas
-                </TableCell>
-                <TableCell
-                  isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
-                >
-                  Jumlah Produksi
+                  Sumber Kebakaran (Pembukaan Lahan / Aktivitas Manusia / Alam / Belum Diketahui)
                 </TableCell>
                 <TableCell
                   isHeader
@@ -321,27 +277,6 @@ export default function PerhutananSosialTable() {
                   <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
                     {order.budget}
                   </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                    {order.budget}
-                  </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                    {order.budget}
-                  </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                    {order.budget}
-                  </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                    {order.budget}
-                  </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                    {order.budget}
-                  </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                    {order.budget}
-                  </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                    {order.budget}
-                  </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                     <Badge
                       size="sm"
@@ -357,7 +292,7 @@ export default function PerhutananSosialTable() {
                     </Badge>
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                    <Link href={`/perhutanan-sosial/${order.id}/edit`}>
+                    <Link href={`/karhutla/${order.id}/edit`}>
                     <button 
                       className="flex w-full items-center justify-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200 lg:inline-flex lg:w-auto"
                     >

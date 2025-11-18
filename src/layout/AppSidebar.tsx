@@ -47,6 +47,31 @@ const navItems: NavItem[] = [
     icon: <TableIcon />,
     path: "/data-fauna",
   },
+  {
+    name: "RURHL",
+    icon: <TableIcon />,
+    path: "/rurhl",
+  },
+  {
+    name: "Karhutla",
+    icon: <TableIcon />,
+    path: "/karhutla",
+  },
+  {
+    name: "Deforestasi",
+    icon: <TableIcon />,
+    path: "/deforestasi",
+  },
+  {
+    name: "Degradasi",
+    icon: <TableIcon />,
+    path: "/degradasi",
+  },
+  {
+    name: "Pembibitan",
+    icon: <TableIcon />,
+    path: "/pembibitan",
+  },
   
 ];
 
