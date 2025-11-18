@@ -1,6 +1,6 @@
 import ComponentCard from "@/components/common/ComponentCard";
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
-import FormCreate from "@/components/data-fauna/FormCreate";
+import FormCreate from "@/components/peta/FormCreate";
 import Button from "@/components/ui/button/Button";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -16,12 +16,12 @@ export const metadata: Metadata = {
 export default function BasicTables() {
   return (
     <div>
-      <PageBreadcrumb pageTitle="Data Fauna" />
+      <PageBreadcrumb pageTitle="Data Peta" />
       <div className="space-y-6">
-        <ComponentCard title="Tambah Data Fauna">
+        <ComponentCard title="Tambah Peta">
 
           <div className="mb-6 flex justify-end">
-            <Link href="/data-fauna">
+            <Link href="/master/peta">
                 <Button variant="outline">Kembali</Button>
             </Link>
           </div>

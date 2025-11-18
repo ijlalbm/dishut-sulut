@@ -16,12 +16,12 @@ export const metadata: Metadata = {
 export default function BasicTables() {
   return (
     <div>
-      <PageBreadcrumb pageTitle="Data Fauna" />
+      <PageBreadcrumb pageTitle="Data User" />
       <div className="space-y-6">
-        <ComponentCard title="Edit Data Fauna">
+        <ComponentCard title="Edit Data User">
 
           <div className="mb-6 flex justify-end">
-            <Link href="/data-fauna">
+            <Link href="/master/user">
                 <Button variant="outline">Kembali</Button>
             </Link>
           </div>

@@ -1,4 +1,4 @@
-import DataFloraTable from "@/components/data-flora/DataFloraTable";
+import UsersTable from "@/components/user/UsersTable";
 import ComponentCard from "@/components/common/ComponentCard";
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import Button from "@/components/ui/button/Button";
@@ -16,17 +16,17 @@ export const metadata: Metadata = {
 export default function BasicTables() {
   return (
     <div>
-      <PageBreadcrumb pageTitle="Data Fauna" />
+      <PageBreadcrumb pageTitle="Data Users" />
       <div className="space-y-6">
-        <ComponentCard title="Tabel Data Fauna">
+        <ComponentCard title="Tabel Data Users">
           <div className="mb-6 flex justify-end">
-            <Link href="/data-fauna/create">
+            <Link href="/master/user/create">
               <Button variant="primary">
                 Tambah Data
               </Button>
             </Link>
           </div>
-          <DataFloraTable />
+          <UsersTable />
         </ComponentCard>
       </div>
     </div>
