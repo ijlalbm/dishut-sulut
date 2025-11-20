@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Header from "../../../components/webgis/Header";
 
 const LeafletMap = dynamic(() => import("../../../components/webgis/Map"), {
   ssr: false,
@@ -8,10 +9,12 @@ const LeafletMap = dynamic(() => import("../../../components/webgis/Map"), {
 
 export default function HomePage() {
   return (
-    <main className="p-6 space-y-4">
-      <h1 className="text-2xl font-bold">React Leaflet + Next.js + Tailwind</h1>
+    <div className="h-screen flex flex-col">
+      <Header />
 
-      <LeafletMap />
-    </main>
+      <div className="flex-1 my-1">
+        <LeafletMap />
+      </div>
+    </div>
   );
 }

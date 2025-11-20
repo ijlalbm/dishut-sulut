@@ -43,3 +43,43 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsI
     "password": "test",
     "name": ""
 }
+
+###
+GET http://localhost:3000/api/perhutanan_sosial HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJ1c2VybmFtZSI6InNhbXBsZSIsIm5hbWUiOiJzZmciLCJpYXQiOjE3NjM1MTkwODAsImV4cCI6MTc2NDEyMzg4MH0.r6bOh66K-703WZoobabVqKkOA8XETRu2YTJQpzOtnR0
+
+###
+GET http://localhost:3000/api/deforestasi HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJ1c2VybmFtZSI6InNhbXBsZSIsIm5hbWUiOiJzZmciLCJpYXQiOjE3NjM1MTkwODAsImV4cCI6MTc2NDEyMzg4MH0.r6bOh66K-703WZoobabVqKkOA8XETRu2YTJQpzOtnR0
+
+###
+GET http://localhost:3000/api/degradasi HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJ1c2VybmFtZSI6InNhbXBsZSIsIm5hbWUiOiJzZmciLCJpYXQiOjE3NjM1MTkwODAsImV4cCI6MTc2NDEyMzg4MH0.r6bOh66K-703WZoobabVqKkOA8XETRu2YTJQpzOtnR0
+
+###
+GET http://localhost:3000/api/fauna HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJ1c2VybmFtZSI6InNhbXBsZSIsIm5hbWUiOiJzZmciLCJpYXQiOjE3NjM1MTkwODAsImV4cCI6MTc2NDEyMzg4MH0.r6bOh66K-703WZoobabVqKkOA8XETRu2YTJQpzOtnR0
+
+###
+GET http://localhost:3000/api/flora HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJ1c2VybmFtZSI6InNhbXBsZSIsIm5hbWUiOiJzZmciLCJpYXQiOjE3NjM1MTkwODAsImV4cCI6MTc2NDEyMzg4MH0.r6bOh66K-703WZoobabVqKkOA8XETRu2YTJQpzOtnR0
+
+###
+GET http://localhost:3000/api/karhutla HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJ1c2VybmFtZSI6InNhbXBsZSIsIm5hbWUiOiJzZmciLCJpYXQiOjE3NjM1MTkwODAsImV4cCI6MTc2NDEyMzg4MH0.r6bOh66K-703WZoobabVqKkOA8XETRu2YTJQpzOtnR0
+
+###
+GET http://localhost:3000/api/pembibitan HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJ1c2VybmFtZSI6InNhbXBsZSIsIm5hbWUiOiJzZmciLCJpYXQiOjE3NjM1MTkwODAsImV4cCI6MTc2NDEyMzg4MH0.r6bOh66K-703WZoobabVqKkOA8XETRu2YTJQpzOtnR0
+
+###
+GET http://localhost:3000/api/rurhl HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJ1c2VybmFtZSI6InNhbXBsZSIsIm5hbWUiOiJzZmciLCJpYXQiOjE3NjM1MTkwODAsImV4cCI6MTc2NDEyMzg4MH0.r6bOh66K-703WZoobabVqKkOA8XETRu2YTJQpzOtnR0

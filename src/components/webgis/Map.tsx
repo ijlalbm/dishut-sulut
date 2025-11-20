@@ -21,10 +21,10 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 export default function LeafletMap() {
   return (
-    <div className="w-full h-[400px] rounded-xl overflow-hidden shadow-lg">
+    <div className="w-full h-full rounded-xl overflow-hidden shadow-lg">
       <MapContainer
         center={[0.6246932, 123.9750018]}
-        zoom={13}
+        // zoom={}
         className="w-full h-full"
       >
         <TileLayer
