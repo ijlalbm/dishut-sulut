@@ -1,3 +1,28 @@
+CREATE TABLE perhutanan_sosial (
+    id INT PRIMARY KEY AUTO_INCREMENT, -- Kolom ID unik, disarankan untuk setiap tabel
+    nama_lembaga VARCHAR(255) NOT NULL,
+    nomor_sk VARCHAR(100),
+    tanggal_sk DATE,
+    nama_kups VARCHAR(255),
+    no_sk_kups VARCHAR(100),
+    komoditas VARCHAR(255),
+    jumlah_produksi DECIMAL(10, 2), -- Menggunakan DECIMAL untuk angka produksi yang mungkin memiliki desimal
+    desa VARCHAR(100),
+    kecamatan VARCHAR(100),
+    kabupaten_kota VARCHAR(100),
+    skema ENUM('hkm', 'hd') NOT NULL, -- Menggunakan ENUM untuk opsi dropdown 'hkm' atau 'hd'
+    luas_areal DECIMAL(10, 2), -- Menggunakan DECIMAL untuk luas areal
+    jumlah_anggota INT,
+    nama_ketua VARCHAR(255),
+    nama_kph VARCHAR(255),
+    dokumen_hasil_produk VARCHAR(255), -- Menyimpan path atau nama file PDF
+    dokumen_fasilitas VARCHAR(255), -- Menyimpan path atau nama file PDF
+    dokumen_sk VARCHAR(255), -- Menyimpan path atau nama file PDF
+    penyuluh VARCHAR(255),
+    galeri_foto TEXT -- Menggunakan TEXT untuk menyimpan daftar/link beberapa foto (misalnya, dalam format JSON atau dipisahkan koma)
+);
+
+
 CREATE TABLE flora (
     id INT PRIMARY KEY AUTO_INCREMENT, -- Kolom ID unik sebagai kunci utama
     nama_lokal VARCHAR(255) NOT NULL,
