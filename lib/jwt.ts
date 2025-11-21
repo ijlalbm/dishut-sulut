@@ -10,8 +10,6 @@ export function signJwt(payload: object) {
   return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
 }
 
-console.log("JWT_SECRET:", JWT_SECRET);
-
 export function verifyJwt<T = any>(token: string): T {
   return jwt.verify(token, JWT_SECRET) as T;
 }
