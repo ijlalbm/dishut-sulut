@@ -4,6 +4,14 @@ import { pool } from "../../../lib/db";
 import bcrypt from "bcryptjs";
 import { signJwt } from "../../../lib/jwt";
 
+// Define the User type
+interface User {
+  id: number;
+  email: string;
+  password_hash: string;
+  name: string | null;
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
@@ -12,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const [rows] = await pool.query("SELECT id, email, password_hash, name FROM users WHERE username = ?", [username]);
-    const users = rows as any[];
+    const users = rows as User[];
 
     if (users.length === 0) return res.status(401).json({ error: "Invalid credentials" });
 

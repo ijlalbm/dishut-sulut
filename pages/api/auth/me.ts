@@ -3,6 +3,14 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { pool } from "../../../lib/db";
 import { verifyJwt } from "../../../lib/jwt";
 
+// Define the User type
+interface User {
+  id: number;
+  email: string;
+  password_hash: string;
+  name: string | null;
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "GET") return res.status(405).json({ error: "Method not allowed" });
 
@@ -14,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const payload = verifyJwt<{ sub: number; email?: string }>(token);
     const userId = payload.sub;
     const [rows] = await pool.query("SELECT id, email, name, created_at FROM users WHERE id = ?", [userId]);
-    const users = rows as any[];
+    const users = rows as User[];
 
     if (!users.length) return res.status(404).json({ error: "User not found" });
 

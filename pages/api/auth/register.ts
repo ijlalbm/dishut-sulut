@@ -5,6 +5,14 @@ import bcrypt from "bcryptjs";
 
 const SALT_ROUNDS = Number(process.env.BCRYPT_SALT_ROUNDS || 10);
 
+// Define the User type
+interface User {
+  id: number;
+  email: string;
+  password_hash: string;
+  name: string | null;
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -19,13 +27,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     // check existing
     const [rows] = await pool.query("SELECT id FROM users WHERE email = ?", [email]);
-    if ((rows as any[]).length > 0) {
+    if ((rows as User[]).length > 0) {
       return res.status(409).json({ error: "User already exists" });
     }
 
     // check existing
     const [uname] = await pool.query("SELECT id FROM users WHERE username = ?", [username]);
-    if ((uname as any[]).length > 0) {
+    if ((uname as User[]).length > 0) {
       return res.status(409).json({ error: "User already exists" });
     }
 
