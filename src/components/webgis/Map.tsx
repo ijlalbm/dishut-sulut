@@ -1,31 +1,166 @@
+// "use client";
+
+// import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from "react-leaflet";
+// import { useEffect, useState } from "react";
+// import L from "leaflet";
+// import "leaflet/dist/leaflet.css";
+
+// // Fix Leaflet icons in Next.js
+// import markerIcon from "leaflet/dist/images/marker-icon.png";
+// import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+// import markerShadow from "leaflet/dist/images/marker-shadow.png";
+
+// // Explicitly resolve the image URLs as strings
+// const DefaultIcon = L.icon({
+//   iconUrl: (markerIcon as unknown) as string,
+//   iconRetinaUrl: (markerIcon2x as unknown) as string,
+//   shadowUrl: (markerShadow as unknown) as string,
+//   iconSize: [25, 41],
+//   iconAnchor: [12, 41],
+// });
+
+// L.Marker.prototype.options.icon = DefaultIcon;
+
+
+
+// export default function LeafletMap() {
+
+//   const [geoData, setGeoData] = useState<any>(null);
+
+
+//   // Load GeoJSON from public folder
+//   useEffect(() => {
+//     fetch("/data/minahasa.geojson")
+//       .then((res) => res.json())
+//       .then((data) => {
+//         console.log("GEOJSON DATA:", data);
+//         setGeoData(data);
+//       })
+//       .catch((err) => console.error("Error loading GeoJSON:", err));
+//   }, []);
+
+//   console.log("Map render");
+//   console.log("GeoData:", geoData);
+
+//   const geoStyle = {
+//     color: "#ff7800",
+//     weight: 2,
+//     fillOpacity: 0.3,
+//   };
+
+//     // 🔥 Popup handler untuk GeoJSON
+//   const onEachFeature = (feature, layer) => {
+//     layer.on("click", function () {
+//       console.log("Clicked GEOJSON feature:", feature.properties);
+
+//       const name =
+//         feature.properties?.name ||
+//         feature.properties?.NAMOBJ ||
+//         "Tidak ada nama";
+
+//       layer.bindPopup(`<b>${name}</b>`).openPopup();
+//     });
+//   };
+
+
+//   return (
+//     <div className="w-full h-full rounded-xl overflow-hidden shadow-lg">
+//       <MapContainer
+//         center={[0.6246932, 123.9750018]}
+//         zoom={9}
+//         className="w-full h-full"
+//       >
+   
+//         <TileLayer
+//           attribution="© OpenStreetMap contributors"
+//           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+//         />
+
+//         {/* Example Marker */}
+//         <Marker position={[0.6246932, 123.9750018]}>
+//           <Popup>Hello from this location!</Popup>
+//         </Marker>
+
+//          {geoData && <GeoJSON data={geoData} style={() => geoStyle} />}
+
+//         console.log("test"); 
+//       </MapContainer>
+//     </div>
+//   );
+// }
+
 "use client";
 
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import L from "leaflet";
+import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from "react-leaflet";
+import { useEffect, useState } from "react";
+import L, { LeafletMouseEvent, Layer } from "leaflet";
 import "leaflet/dist/leaflet.css";
 
-// Fix Leaflet icons in Next.js
+// Fix icons
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 
-// Explicitly resolve the image URLs as strings
 const DefaultIcon = L.icon({
-  iconUrl: (markerIcon as unknown) as string,
-  iconRetinaUrl: (markerIcon2x as unknown) as string,
-  shadowUrl: (markerShadow as unknown) as string,
+  iconUrl: markerIcon,
+  iconRetinaUrl: markerIcon2x,
+  shadowUrl: markerShadow,
   iconSize: [25, 41],
   iconAnchor: [12, 41],
 });
-
 L.Marker.prototype.options.icon = DefaultIcon;
 
+// Define GeoJSON Feature type
+interface GeoFeatureProperties {
+  name?: string;
+  NAMOBJ?: string;
+  [key: string]: any;
+}
+
+interface GeoFeature {
+  type: string;
+  properties: GeoFeatureProperties;
+  geometry: any;
+}
+
 export default function LeafletMap() {
+  const [geoData, setGeoData] = useState<any>(null);
+
+  useEffect(() => {
+    fetch("/data/minahasa.geojson")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("GEOJSON DATA:", data);
+        setGeoData(data);
+      })
+      .catch((err) => console.error("Error loading GeoJSON:", err));
+  }, []);
+
+  const geoStyle: L.PathOptions = {
+    color: "#ff7800",
+    weight: 2,
+    fillOpacity: 0.3,
+  };
+
+  // 👇 TypeScript-friendly onEachFeature handler
+  const onEachFeature = (feature: GeoFeature, layer: Layer) => {
+    layer.on("click", (e: LeafletMouseEvent) => {
+      console.log("Clicked feature:", feature.properties);
+
+      const name =
+        feature.properties?.name ||
+        feature.properties?.NAMOBJ ||
+        "Data Yang diinput akan muncul disini";
+
+      layer.bindPopup(`<b>${name}</b>`).openPopup();
+    });
+  };
+
   return (
     <div className="w-full h-full rounded-xl overflow-hidden shadow-lg">
       <MapContainer
         center={[0.6246932, 123.9750018]}
-        zoom={13}
+        zoom={9}
         className="w-full h-full"
       >
         <TileLayer
@@ -33,10 +168,17 @@ export default function LeafletMap() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {/* Example Marker */}
         <Marker position={[0.6246932, 123.9750018]}>
           <Popup>Hello from this location!</Popup>
         </Marker>
+
+        {geoData && (
+          <GeoJSON
+            data={geoData}
+            style={() => geoStyle}
+            onEachFeature={onEachFeature}
+          />
+        )}
       </MapContainer>
     </div>
   );

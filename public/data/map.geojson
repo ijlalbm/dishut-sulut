@@ -1,0 +1,27 @@
+{
+  "type": "FeatureCollection",
+  "name": "sulawesi_utara_simple",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "provinsi": "Sulawesi Utara"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [123.200, 0.400],
+            [124.000, 0.200],
+            [125.200, 0.400],
+            [125.300, 1.200],
+            [124.800, 1.500],
+            [124.200, 1.600],
+            [123.400, 1.300],
+            [123.200, 0.400]
+          ]
+        ]
+      }
+    }
+  ]
+}
