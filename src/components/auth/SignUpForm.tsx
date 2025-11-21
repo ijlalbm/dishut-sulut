@@ -85,29 +85,29 @@ export default function SignUpForm() {
             </div> */}
             <form>
               <div className="space-y-5">
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                <div>
                   {/* <!-- First Name --> */}
                   <div className="sm:col-span-1">
                     <Label>
-                      First Name<span className="text-error-500">*</span>
+                      Nama<span className="text-error-500">*</span>
                     </Label>
                     <Input
                       type="text"
                       id="fname"
                       name="fname"
-                      placeholder="Enter your first name"
+                      placeholder="Nama"
                     />
                   </div>
                   {/* <!-- Last Name --> */}
                   <div className="sm:col-span-1">
                     <Label>
-                      Last Name<span className="text-error-500">*</span>
+                      Username<span className="text-error-500">*</span>
                     </Label>
                     <Input
                       type="text"
                       id="lname"
                       name="lname"
-                      placeholder="Enter your last name"
+                      placeholder="Username"
                     />
                   </div>
                 </div>
@@ -144,6 +144,50 @@ export default function SignUpForm() {
                       )}
                     </span>
                   </div>
+                </div>
+                <div>
+                  <Label>
+                    Jenis Kelamin<span className="text-error-500">*</span>
+                  </Label>
+                  <Input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Jenis Kelamin"
+                  />
+                </div>
+                <div>
+                  <Label>
+                    Instansi<span className="text-error-500">*</span>
+                  </Label>
+                  <Input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Instansi"
+                  />
+                </div>
+                <div>
+                  <Label>
+                    Wilayah Kerja<span className="text-error-500">*</span>
+                  </Label>
+                  <Input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Wilayah Kerja"
+                  />
+                </div>
+                <div>
+                  <Label>
+                    Alamat<span className="text-error-500">*</span>
+                  </Label>
+                  <Input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Alamat"
+                  />
                 </div>
                 {/* <!-- Checkbox --> */}
                 {/* <div className="flex items-center gap-3">
