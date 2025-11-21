@@ -110,6 +110,17 @@ export default function SignUpForm() {
                       placeholder="Username"
                     />
                   </div>
+                   <div className="sm:col-span-1">
+                    <Label>
+                      Kontak / Nomor HP<span className="text-error-500">*</span>
+                    </Label>
+                    <Input
+                      type="text"
+                      id="lname"
+                      name="lname"
+                      placeholder="Kontak / Nomor HP"
+                    />
+                  </div>
                 </div>
                 {/* <!-- Email --> */}
                 <div>
