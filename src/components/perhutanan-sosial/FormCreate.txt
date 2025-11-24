@@ -1,0 +1,200 @@
+"use client";
+import React, { useState } from 'react';
+import Button from '../ui/button/Button';
+import Label from '../form/Label';
+import Input from '../form/input/InputField';
+import Select from '../form/Select';
+import { ChevronDownIcon, EyeCloseIcon, EyeIcon, TimeIcon } from '../../icons';
+import DatePicker from '@/components/form/date-picker';
+
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { PerhutananSosialSchema, PerhutananSosialForm } from "./data/schema";
+import toast from "react-hot-toast";
+
+export default function FormCreate() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  // const form = useForm<PerhutananSosialForm>({
+  //   resolver: zodResolver(PerhutananSosialSchema),
+  // });
+
+  // const { register, handleSubmit, formState, reset } = form;
+
+  const form = useForm<PerhutananSosialForm>({
+    resolver: zodResolver(PerhutananSosialSchema),
+  });
+
+  const onSubmit = async (data: PerhutananSosialForm
+    
+  ) => {
+
+    console.log('Submitting data:', data);
+
+    try {
+      const res = await fetch("/api/perhutanan-sosial", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) throw new Error("Failed to create user");
+
+      toast.success("User created successfully!");
+      // reset();
+    } catch (error) {
+      toast.error("Failed to save user");
+      console.error(error);
+    }
+  };
+
+  const options = [
+    { value: "marketing", label: "Marketing" },
+    { value: "template", label: "Template" },
+    { value: "development", label: "Development" },
+  ];
+  const handleSelectChange = (value: string) => {
+    console.log("Selected value:", value);
+  };
+  return (
+    
+      <div className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <Label>Nama Lembaga</Label>
+            <Input
+              name="nama_lembaga"
+              placeholder="Nama Lembaga"
+              register={register}
+              errorMessage={formState.errors.nama_lembaga?.message}
+            />
+
+            {/* {form.formState.errors.nomor_sk && (
+              <p className="text-red-500 text-sm">
+                {form.formState.errors.nomor_sk.message}
+              </p>
+            )} */}
+          </div>
+          <div>
+            <Label>Nomor SK</Label>
+            <Input
+              name="nomor_sk"
+              placeholder="Nomor SK"
+              register={form.register}
+              errorMessage={form.formState.errors.nomor_sk?.message}
+            />
+          </div>
+          <div>
+            <DatePicker
+              id="date-picker"
+              label="Tanggal SK"
+              placeholder="Pilih tanggal SK"
+              onChange={(dates, currentDateString) => {
+                // Handle your logic
+                console.log({ dates, currentDateString });
+              }}
+            />
+          </div>
+          
+          <div>
+            <Label>Desa</Label>
+            <div className="relative">
+              <Select
+              options={options}
+              placeholder="Pilih Desa"
+              onChange={handleSelectChange}
+              className="dark:bg-dark-900"
+            />
+              <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
+                <ChevronDownIcon/>
+              </span>
+            </div>
+          </div>
+          <div>
+            <Label>Kecamatan</Label>
+            <div className="relative">
+              <Select
+              options={options}
+              placeholder="Pilih Kecamatan"
+              onChange={handleSelectChange}
+              className="dark:bg-dark-900"
+            />
+              <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
+                <ChevronDownIcon/>
+              </span>
+            </div>
+          <div>
+            <Label>Kabupaten</Label>
+            <div className="relative">
+              <Select
+              options={options}
+              placeholder="Pilih Kabupaten"
+              onChange={handleSelectChange}
+              className="dark:bg-dark-900"
+            />
+              <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
+                <ChevronDownIcon/>
+              </span>
+            </div>
+          </div>
+          <div>
+            <DatePicker
+              id="date-picker"
+              label="Date Picker Input"
+              placeholder="Select a date"
+              onChange={(dates, currentDateString) => {
+                // Handle your logic
+                console.log({ dates, currentDateString });
+              }}
+            />
+          </div>
+
+          <div>
+            <Label htmlFor="tm">Time Picker Input</Label>
+            <div className="relative">
+              <Input
+                type="time"
+                id="tm"
+                name="tm"
+                onChange={(e) => console.log(e.target.value)}
+              />
+              <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
+                <TimeIcon />
+              </span>
+            </div>
+          </div>
+          <div>
+            <Label htmlFor="tm">Input with Payment</Label>
+            <div className="relative">
+              <Input
+                type="text"
+                placeholder="Card number"
+                className="pl-[62px]"
+              />
+              <span className="absolute left-0 top-1/2 flex h-11 w-[46px] -translate-y-1/2 items-center justify-center border-r border-gray-200 dark:border-gray-800">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="6.25" cy="10" r="5.625" fill="#E80B26" />
+                  <circle cx="13.75" cy="10" r="5.625" fill="#F59D31" />
+                  <path
+                    d="M10 14.1924C11.1508 13.1625 11.875 11.6657 11.875 9.99979C11.875 8.33383 11.1508 6.8371 10 5.80713C8.84918 6.8371 8.125 8.33383 8.125 9.99979C8.125 11.6657 8.84918 13.1625 10 14.1924Z"
+                    fill="#FC6020"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+            <div className="mb-6 flex justify-end">
+              <Button type="submit" variant="primary">Simpan</Button>
+            </div>
+          </div>
+        </form>
+      </div>
+  );
+}
