@@ -1,0 +1,225 @@
+{
+  "provinsi": "Sulawesi Utara",
+  "data_wilayah": [
+    {
+      "kode_wilayah": "71.01",
+      "nama_kab_kot": "Kabupaten Bolaang Mongondow",
+      "ibu_kota": "Lolak",
+      "jumlah_kecamatan": 15,
+      "jumlah_kelurahan": 2,
+      "jumlah_desa": 200,
+      "kecamatan": [
+        {
+          "nama_kecamatan": "Bilalang",
+          "desa_dan_kelurahan": [
+            {"nama": "Apado", "status": "Desa"},
+            {"nama": "Bilalang III", "status": "Desa"},
+            {"nama": "Bilalang III Utara", "status": "Desa"},
+            {"nama": "Bilalang IV", "status": "Desa"},
+            {"nama": "Bilalang Baru", "status": "Desa"},
+            {"nama": "Kolinganga'an", "status": "Desa"},
+            {"nama": "Tuduaog", "status": "Desa"},
+            {"nama": "Tuduaog Baru", "status": "Desa"}
+          ]
+        },
+        {
+          "nama_kecamatan": "Bolaang",
+          "desa_dan_kelurahan": [
+            {"nama": "Inobonto", "status": "Kelurahan"},
+            {"nama": "Bangomolunow", "status": "Desa"},
+            {"nama": "Inobonto Dua", "status": "Desa"},
+            {"nama": "Inobonto Satu", "status": "Desa"},
+            {"nama": "Komangaan", "status": "Desa"},
+            {"nama": "Langagon", "status": "Desa"},
+            {"nama": "Langagon Satu", "status": "Desa"},
+            {"nama": "Langagon Dua", "status": "Desa"},
+            {"nama": "Solimandungan Baru", "status": "Desa"},
+            {"nama": "Solimandungan Dua", "status": "Desa"},
+            {"nama": "Solimandungan Satu", "status": "Desa"}
+          ]
+        },
+        {
+          "nama_kecamatan": "Bolaang Timur",
+          "desa_dan_kelurahan": [
+            {"nama": "Ambang I", "status": "Desa"},
+            {"nama": "Ambang II", "status": "Desa"},
+            {"nama": "Bantik", "status": "Desa"},
+            {"nama": "Bolaang", "status": "Desa"},
+            {"nama": "Bolaang Satu", "status": "Desa"},
+            {"nama": "Lolan", "status": "Desa"},
+            {"nama": "Lolan Dua", "status": "Desa"},
+            {"nama": "Tadoy", "status": "Desa"},
+            {"nama": "Tadoy I", "status": "Desa"}
+          ]
+        },
+        {
+          "nama_kecamatan": "Dumoga",
+          "desa_dan_kelurahan": [
+            {"nama": "Bumbungon", "status": "Desa"},
+            {"nama": "Dumoga Satu", "status": "Desa"},
+            {"nama": "Kanaan", "status": "Desa"},
+            {"nama": "Mototabian", "status": "Desa"},
+            {"nama": "Ponompiaan", "status": "Desa"},
+            {"nama": "Pusian", "status": "Desa"},
+            {"nama": "Pusian Barat", "status": "Desa"},
+            {"nama": "Pusian Selatan", "status": "Desa"},
+            {"nama": "Serasi", "status": "Desa"},
+            {"nama": "Siniyung", "status": "Desa"},
+            {"nama": "Siniyung Satu", "status": "Desa"},
+            {"nama": "Toruakat", "status": "Desa"}
+          ]
+        },
+        {
+          "nama_kecamatan": "Dumoga Barat",
+          "desa_dan_kelurahan": [
+            {"nama": "Doloduo", "status": "Desa"},
+            {"nama": "Doloduo Dua", "status": "Desa"},
+            {"nama": "Doloduo Satu", "status": "Desa"},
+            {"nama": "Doloduo Tiga", "status": "Desa"},
+            {"nama": "Ikhwan", "status": "Desa"},
+            {"nama": "Matayangan", "status": "Desa"},
+            {"nama": "Mekaruo", "status": "Desa"},
+            {"nama": "Totaut", "status": "Desa"},
+            {"nama": "Toraut Tengah", "status": "Desa"},
+            {"nama": "Toraut Utara", "status": "Desa"},
+            {"nama": "Uuan", "status": "Desa"},
+            {"nama": "Wangga Baru", "status": "Desa"}
+          ]
+        },
+        {
+          "nama_kecamatan": "Dumoga Tengah",
+          "desa_dan_kelurahan": [
+            {"nama": "Ibolian", "status": "Desa"},
+            {"nama": "Ibolian Satu", "status": "Desa"},
+            {"nama": "Kinomalingan", "status": "Desa"},
+            {"nama": "Kosio", "status": "Desa"},
+            {"nama": "Kosio Timur", "status": "Desa"},
+            {"nama": "Kosio Barat", "status": "Desa"},
+            {"nama": "Werdhi Agung", "status": "Desa"},
+            {"nama": "Werdhi Agung Selatan", "status": "Desa"},
+            {"nama": "Werdhi Agung Timur", "status": "Desa"},
+            {"nama": "Werdhi Agung Utara", "status": "Desa"}
+          ]
+        },
+        {
+          "nama_kecamatan": "Dumoga Tenggara",
+          "desa_dan_kelurahan": [
+            {"nama": "Bonawang", "status": "Desa"},
+            {"nama": "Dumara", "status": "Desa"},
+            {"nama": "Ikuna", "status": "Desa"},
+            {"nama": "Konarom", "status": "Desa"},
+            {"nama": "Konarom Barat", "status": "Desa"},
+            {"nama": "Konarom Utara", "status": "Desa"},
+            {"nama": "Osion", "status": "Desa"},
+            {"nama": "Tapadaka Satu", "status": "Desa"},
+            {"nama": "Tapadaka Timur", "status": "Desa"},
+            {"nama": "Tapadaka Utara", "status": "Desa"}
+          ]
+        },
+        {
+          "nama_kecamatan": "Dumoga Timur",
+          "desa_dan_kelurahan": [
+            {"nama": "Imandi", "status": "Kelurahan"},
+            {"nama": "Amertha Buana", "status": "Desa"},
+            {"nama": "Amertha Sari", "status": "Desa"},
+            {"nama": "Dumoga", "status": "Desa"},
+            {"nama": "Dumoga II", "status": "Desa"},
+            {"nama": "Dumoga Empat", "status": "Desa"},
+            {"nama": "Dumoga Tiga", "status": "Desa"},
+            {"nama": "Kembang Mertha", "status": "Desa"},
+            {"nama": "Kembang Sari", "status": "Desa"},
+            {"nama": "Modomang", "status": "Desa"},
+            {"nama": "Mogoyunggung", "status": "Desa"},
+            {"nama": "Mogoyunggung Dua", "status": "Desa"},
+            {"nama": "Mogoyunggung Satu", "status": "Desa"},
+            {"nama": "Pinonobatuan", "status": "Desa"},
+            {"nama": "Pinonobatuan Barat", "status": "Desa"},
+            {"nama": "Tonom", "status": "Desa"}
+          ]
+        },
+        {
+          "nama_kecamatan": "Dumoga Utara",
+          "desa_dan_kelurahan": [
+            {"nama": "Dondomon", "status": "Desa"},
+            {"nama": "Dondomon Utara", "status": "Desa"},
+            {"nama": "Dondomon Selatan", "status": "Desa"},
+            {"nama": "Mopugad Selatan", "status": "Desa"},
+            {"nama": "Mopugad Selatan Satu", "status": "Desa"},
+            {"nama": "Mopugad Utara", "status": "Desa"},
+            {"nama": "Mopugad Utara Satu", "status": "Desa"},
+            {"nama": "Mopugad Utara Dua", "status": "Desa"},
+            {"nama": "Mopuya Selatan", "status": "Desa"},
+            {"nama": "Mopuya Selatan Satu", "status": "Desa"},
+            {"nama": "Mopuya Selatan Dua", "status": "Desa"},
+            {"nama": "Mopuya Utara", "status": "Desa"},
+            {"nama": "Mopuya Utara Satu", "status": "Desa"},
+            {"nama": "Mopuya Utara Dua", "status": "Desa"},
+            {"nama": "Tumokang Baru", "status": "Desa"},
+            {"nama": "Tumokang Timur", "status": "Desa"}
+          ]
+        },
+        {
+          "nama_kecamatan": "Lolak",
+          "desa_dan_kelurahan": [
+            {"nama": "Baturapa I", "status": "Desa"},
+            {"nama": "Baturapa Induk", "status": "Desa"},
+            {"nama": "Bumbung", "status": "Desa"},
+            {"nama": "Buntalo Induk", "status": "Desa"},
+            {"nama": "Buntalo Selatan", "status": "Desa"},
+            {"nama": "Buntalo Timur", "status": "Desa"},
+            {"nama": "Diat", "status": "Desa"},
+            {"nama": "Dulangan", "status": "Desa"},
+            {"nama": "Labuhan Uki", "status": "Desa"},
+            {"nama": "Lalow", "status": "Desa"},
+            {"nama": "Lolak II", "status": "Desa"},
+            {"nama": "Lolak Induk", "status": "Desa"},
+            {"nama": "Lolak Tombolango", "status": "Desa"},
+            {"nama": "Mongkoinit", "status": "Desa"},
+            {"nama": "Mongkoinit Barat", "status": "Desa"},
+            {"nama": "Motabang", "status": "Desa"},
+            {"nama": "Padang Lalow", "status": "Desa"},
+            {"nama": "Pindol", "status": "Desa"},
+            {"nama": "Pindolili", "status": "Desa"},
+            {"nama": "Pinogaluman", "status": "Desa"},
+            {"nama": "Pinogalum Timur", "status": "Desa"},
+            {"nama": "Sauk", "status": "Desa"},
+            {"nama": "Solog", "status": "Desa"},
+            {"nama": "Tandu", "status": "Desa"},
+            {"nama": "Totabuan", "status": "Desa"},
+            {"nama": "Tuyat", "status": "Desa"}
+          ]
+        },
+        {
+          "nama_kecamatan": "Lolayan",
+          "desa_dan_kelurahan": [
+            {"catatan": "Data desa lengkap Lolayan tidak tersedia dalam hasil pencarian. Terdiri dari sekitar 16 desa/kelurahan."}
+          ]
+        },
+        {
+          "nama_kecamatan": "Passi Barat",
+          "desa_dan_kelurahan": [
+            {"catatan": "Data desa lengkap Passi Barat tidak tersedia dalam hasil pencarian. Terdiri dari sekitar 16 desa/kelurahan."}
+          ]
+        },
+        {
+          "nama_kecamatan": "Passi Timur",
+          "desa_dan_kelurahan": [
+            {"catatan": "Data desa lengkap Passi Timur tidak tersedia dalam hasil pencarian. Terdiri dari sekitar 15 desa/kelurahan."}
+          ]
+        },
+        {
+          "nama_kecamatan": "Poigar",
+          "desa_dan_kelurahan": [
+            {"catatan": "Data desa lengkap Poigar tidak tersedia dalam hasil pencarian. Terdiri dari sekitar 22 desa/kelurahan."}
+          ]
+        },
+        {
+          "nama_kecamatan": "Sangtombolang",
+          "desa_dan_kelurahan": [
+            {"catatan": "Data desa lengkap Sangtombolang tidak tersedia dalam hasil pencarian. Terdiri dari sekitar 14 desa/kelurahan."}
+          ]
+        }
+      ]
+    }
+  ]
+}

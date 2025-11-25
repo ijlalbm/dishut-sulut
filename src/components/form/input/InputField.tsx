@@ -20,7 +20,7 @@ interface InputProps {
 }
 
 const Input: FC<InputProps> = ({
-  type = "text",
+  type,
   id,
   name,
   placeholder,
