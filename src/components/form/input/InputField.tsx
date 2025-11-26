@@ -7,6 +7,7 @@ interface InputProps {
   name?: string;
   placeholder?: string;
   defaultValue?: string | number;
+  registerOptions?: object;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
   min?: string;
@@ -25,6 +26,7 @@ const Input: FC<InputProps> = ({
   name,
   placeholder,
   defaultValue,
+  registerOptions,
   onChange,
   className = "",
   min,
@@ -37,7 +39,7 @@ const Input: FC<InputProps> = ({
   errorMessage,
 }) => {
 
-  const registrationProps = register ? register(name!) : {};
+  const registrationProps = register ? register(name!, registerOptions) : {};
 
   // 💡 Gabungkan fungsi onChange kustom dengan fungsi RHF
   const mergedOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,6 +73,7 @@ const Input: FC<InputProps> = ({
         type={type}
         id={id}
         name={name}
+        registerOptions={registerOptions}
         placeholder={placeholder}
         onChange={mergedOnChange}
         min={min}
