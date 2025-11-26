@@ -11,6 +11,7 @@ type PropsType = {
   mode?: "single" | "multiple" | "range" | "time";
   onChange?: Hook | Hook[];
   defaultDate?: DateOption;
+  value?: string;
   label?: string;
   placeholder?: string;
 };
@@ -19,6 +20,7 @@ export default function DatePicker({
   id,
   mode,
   onChange,
+  value,
   label,
   defaultDate,
   placeholder,
@@ -28,8 +30,8 @@ export default function DatePicker({
       mode: mode || "single",
       static: true,
       monthSelectorType: "static",
-      dateFormat: "d-m-Y",
-      defaultDate,
+      dateFormat: "Y-m-d",
+      defaultDate: value || defaultDate, 
       onChange,
     });
 

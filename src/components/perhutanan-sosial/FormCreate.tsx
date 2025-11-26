@@ -21,6 +21,32 @@ import {toast} from "sonner";
 
 
 export default function FormCreate() {
+
+    // State untuk pilihan wilayah
+    const [selectedKabupaten, setSelectedKabupaten] = useState<string>("");
+    const [selectedKecamatan, setSelectedKecamatan] = useState<string>("");
+    const [selectedDesa, setSelectedDesa] = useState<string>("");
+
+    // Handler kabupaten
+    const handleKabupatenChange = (value: string) => {
+        setSelectedKabupaten(value);
+        setSelectedKecamatan(""); // reset kecamatan
+        setSelectedDesa("");      // reset desa
+        setValue("kabupaten_kota", value, { shouldValidate: true });
+    };
+
+    // Handler kecamatan
+    const handleKecamatanChange = (value: string) => {
+        setSelectedKecamatan(value);
+        setSelectedDesa(""); // reset desa
+        setValue("kecamatan", value, { shouldValidate: true });
+    };
+
+    // Handler desa
+    const handleDesaChange = (value: string) => {
+        setSelectedDesa(value);
+        setValue("desa", value, { shouldValidate: true });
+    };
   
     const { 
         register,
@@ -44,21 +70,45 @@ export default function FormCreate() {
 
     const onSubmit: SubmitHandler<PerhutananSosialForm> = async (data) => {
         try {
-            const res = await fetch("/api/perhutanan_sosial", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
+            // Gunakan FormData untuk mengikutsertakan file
+            const formData = new FormData();
+
+            // Append semua field ke FormData
+            Object.entries(data).forEach(([key, value]) => {
+                if (value === undefined || value === null) return;
+
+                // Jika file tunggal
+                if (value instanceof File) {
+                    formData.append(key, value);
+                    return;
+                }
+
+                // Jika array (mis. galeri_foto berupa File[])
+                if (Array.isArray(value)) {
+                    value.forEach((v: any) => {
+                        if (v instanceof File) formData.append(key, v);
+                        else formData.append(key, String(v));
+                    });
+                    return;
+                }
+
+                // Field biasa (string/number)
+                formData.append(key, String(value));
             });
 
-            console.log(res);
+            // console.log("Mengirim data:", data);
 
-            if (!res.ok) throw new Error(res.statusText);
+            const res = await fetch("/api/perhutanan_sosial", {
+                method: "POST",
+                body: formData,
+            });
+
+            if (!res.ok) throw new Error(res.statusText || "Request failed");
 
             toast.success("Data berhasil ditambahkan");
             reset();
         } catch (error: any) {
-            // toast.error(error.response?.data?.message || "Gagal menambahkan data");
-            toast.error(error.message);
+            toast.error(error.message || "Gagal menambahkan data");
         }
     };
 
@@ -179,267 +229,261 @@ export default function FormCreate() {
     //     }
     // };
 
-
-
-    
-  const handleSelectChange = (value: string) => {
-    console.log("Selected value:", value);
-  };
+    const handleSelectChange = (value: string) => {
+        setValue("skema" as keyof PerhutananSosialForm, value, { shouldValidate: true });
+    }
 
   return (
     <div>
-
-       
-    
         <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="space-y-6">
+            <div className="space-y-6">
 
-            <div>
-                <Label> Nama Lembaga</Label>
-                <Input
-                    id="nama_lembaga"
-                    name="nama_lembaga"
-                    placeholder="Masukkan Nama Lembaga"
-                    
-                    // 🚨 Passing register dan error 🚨
-                    register={register} 
-                    errorMessage={errors.nama_lembaga?.message} 
-                />
-            </div>
-
-            <div>
-                <Label>Nomor SK</Label>
-                <Input
-                name="nomor_sk"
-                placeholder="Nomor SK"
-                register={register}
-                errorMessage={errors.nomor_sk?.message}
-                />
-            </div>
-
-            <div>
-                <DatePicker
-                id="date-picker"
-                label="Tanggal SK"
-                placeholder="tanggal SK"
-                onChange={(dates, currentDateString) => {
-                    // Handle your logic
-                    console.log({ dates, currentDateString });
-                }}
-                />
-            </div>
-
-            <div>
-                <Label>Nama KUPS</Label>
-                <Input
-                name="nama_kups"
-                placeholder="Nama KUPS"
-                register={register}
-                errorMessage={errors.nama_kups?.message}
-                />
-            </div>
-            <div>
-                <Label>Nomor SK KUPS</Label>
-                <Input
-                name="no_sk_kups"
-                placeholder="Nomor SK KUPS"
-                register={register}
-                errorMessage={errors.no_sk_kups?.message}
-                />
-            </div>
-            <div>
-                <Label>Komoditas</Label>
-                <Input
-                name="komoditas"
-                placeholder="Komoditas"
-                register={register}
-                errorMessage={errors.komoditas?.message}
-                />
-            </div>
-            <div>
-                <Label>Jumlah Produksi</Label>
-                <Input
-                type="number"
-                name="jumlah_produksi"
-                placeholder="Jumlah Produksi"
-                register={register}
-                errorMessage={errors.jumlah_produksi?.message}
-                />
-            </div>
-            <div>
-                <Label>Kabupaten</Label>
-                <div className="relative">
-                <Select
-                options={jsonSulut.data_wilayah.map((kabupaten: any) => ({
-                    value: kabupaten.nama_kab_kot,
-                    label: kabupaten.nama_kab_kot
-                }))}
-                placeholder="Pilih Kabupaten"
-                onChange={handleSelectChange}
-                className="dark:bg-dark-900"
-                />
-                <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
-                    <ChevronDownIcon/>
-                </span>
-                </div>
-            </div>
-            <div>
-                <Label>Kecamatan</Label>
-                <div className="relative">
-                <Select
-                options={jsonSulut.data_wilayah[0].kecamatan.map((kecamatan: any) => ({
-                    value: kecamatan.nama_kecamatan,
-                    label: kecamatan.nama_kecamatan
-                }))}
-                placeholder="Pilih Kecamatan"
-                onChange={handleSelectChange}
-                className="dark:bg-dark-900"
-                />
-                <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
-                    <ChevronDownIcon/>
-                </span>
-                </div>
-            </div>
-            <div>
-                <Label>Desa</Label>
-                <div className="relative">
-                <Select
-                options={jsonSulut.data_wilayah[0].kecamatan.flatMap((kecamatan: any) => 
-                    kecamatan.desa_dan_kelurahan.map((desa: any) => ({
-                        value: desa.nama,
-                        label: desa.nama
-                    })))}
-                placeholder="Pilih Desa"
-                onChange={handleSelectChange}
-                className="dark:bg-dark-900"
-                />
-                <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
-                    <ChevronDownIcon/>
-                </span>
-                </div>
-            </div>
-            <div>
-                <Label>Skema</Label>
-                <div className="relative">
-                <Select
-                options={optionsSkema}
-                placeholder="Skema"
-                onChange={handleSelectChange}
-                className="dark:bg-dark-900"
-                />
-                <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
-                    <ChevronDownIcon/>
-                </span>
-                </div>
-                {errors.skema && <p className="mt-1.5 text-xs text-error-500">{errors.skema.message}</p>}
-            </div>
                 <div>
-                    <Label> Luas Areal</Label>
+                    <Label> Nama Lembaga</Label>
                     <Input
-                        id="luas_areal"
-                        name="luas_areal"
-                        placeholder="Masukkan Luas Areal"
+                        id="nama_lembaga"
+                        name="nama_lembaga"
+                        placeholder="Masukkan Nama Lembaga"
                         
                         // 🚨 Passing register dan error 🚨
                         register={register} 
-                        errorMessage={errors.luas_areal?.message} 
+                        errorMessage={errors.nama_lembaga?.message} 
                     />
                 </div>
-                <div>
-                    <Label> Jumlah Anggota</Label>
-                    <Input
-                        id="jumlah_anggota"
-                        name="jumlah_anggota"
-                        placeholder="Jumlah Anggota"
-                        
-                        // 🚨 Passing register dan error 🚨
-                        register={register} 
-                        errorMessage={errors.jumlah_anggota?.message} 
-                    />
-                </div>
-                <div>
-                    <Label> Nama Ketua </Label>
-                    <Input
-                        id="nama_ketua"
-                        name="nama_ketua"
-                        placeholder="Nama Ketua"
-                        
-                        // 🚨 Passing register dan error 🚨
-                        register={register} 
-                        errorMessage={errors.nama_ketua?.message} 
-                    />
-                </div>
-                <div>
-                    <Label> Nama KPH</Label>
-                    <Input
-                        id="nama_kph"
-                        name="nama_kph"
-                        placeholder="Nama KPH"
-                        
-                        // 🚨 Passing register dan error 🚨
-                        register={register} 
-                        errorMessage={errors.nama_kph?.message} 
-                    />
-                </div>
-                <div>
-                    <Label> Dokumen Hasil Produk </Label>
-                    <FileInput
-                        onChange={handleFileHasilProduk}
-                    />
-                    {/* Tampilkan error jika ada */}
-                    {errors.dokumen_hasil_produk && <p className="text-error-500">{errors.dokumen_hasil_produk.message}</p>}
-                </div>
-                <div>
-                    <Label> Dokumen Fasilitas </Label>
-                    <FileInput
-                        onChange={handleFileFasilitas}
-                    />
-                </div>
-                <div>
-                    <Label> Dokumen SK </Label>
-                    <FileInput
-                        onChange={handleFileSk}
-                    />
-                </div>
-                <div>
-                    <Label> Galeri Foto </Label>
-                    <MultiFileInput
-                        id="galeri_foto"
-                        onChange={handleFileGalery}
-                    />
-                    {errors.galeri_foto && <p className="text-error-500">{errors.galeri_foto.message}</p>}
-                    {/* {selectedFileNames.length > 0 && (
-                        <div className="mt-3 p-2 border border-dashed border-gray-300 rounded-lg">
-                            <p className="font-medium text-sm mb-1 text-gray-700">File Terpilih ({selectedFileNames.length}):</p>
-                            <ul className="list-disc list-inside text-xs text-gray-600">
-                                {selectedFileNames.map((name, index) => (
-                                    <li key={index} className="truncate">{name}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    )} */}
-                </div>
-                <div>
-                    <Label> Penyuluh </Label>
-                    <Input
-                        id="penyuluh"
-                        name="penyuluh"
-                        placeholder="Penyuluh"
-                        
-                        // 🚨 Passing register dan error 🚨
-                        register={register} 
-                        errorMessage={errors.penyuluh?.message} 
-                    />
-                </div>
-                <div className="mb-6 flex justify-end">
-                    <Button type="submit" disabled={isSubmitting}>
-                        {isSubmitting ? 'Memproses...' : 'Simpan Data'}
-                    </Button>
-                </div>
-            </div>
-        </form>
 
-    </div>
+                <div>
+                    <Label>Nomor SK</Label>
+                    <Input
+                    name="nomor_sk"
+                    placeholder="Nomor SK"
+                    register={register}
+                    errorMessage={errors.nomor_sk?.message}
+                    />
+                </div>
+
+                <div>
+                    <DatePicker
+                        id="date-picker"
+                        label="Tanggal SK"
+                        placeholder="tanggal SK"
+                        onChange={(dates, currentDateString) => {
+                            // Simpan tanggal ke react-hook-form (format string ISO atau sesuai kebutuhan API)
+                            setValue("tanggal_sk" as keyof PerhutananSosialForm, currentDateString, { shouldValidate: true });
+                        }}
+                    />
+                </div>
+
+                <div>
+                    <Label>Nama KUPS</Label>
+                    <Input
+                    name="nama_kups"
+                    placeholder="Nama KUPS"
+                    register={register}
+                    errorMessage={errors.nama_kups?.message}
+                    />
+                </div>
+                <div>
+                    <Label>Nomor SK KUPS</Label>
+                    <Input
+                    name="no_sk_kups"
+                    placeholder="Nomor SK KUPS"
+                    register={register}
+                    errorMessage={errors.no_sk_kups?.message}
+                    />
+                </div>
+                <div>
+                    <Label>Komoditas</Label>
+                    <Input
+                    name="komoditas"
+                    placeholder="Komoditas"
+                    register={register}
+                    errorMessage={errors.komoditas?.message}
+                    />
+                </div>
+                <div>
+                    <Label>Jumlah Produksi</Label>
+                    <Input
+                    name="jumlah_produksi"
+                    placeholder="Jumlah Produksi"
+                    register={register}
+                    errorMessage={errors.jumlah_produksi?.message}
+                    />
+                </div>
+                <div>
+                    <Label>Kabupaten</Label>
+                    <div className="relative">
+                    <Select
+                    options={jsonSulut.data_wilayah.map((kabupaten: any) => ({
+                        id: kabupaten.nama_kab_kot,
+                        value: kabupaten.nama_kab_kot,
+                        label: kabupaten.nama_kab_kot
+                    }))}
+                    placeholder="Pilih Kabupaten"
+                    onChange={handleKabupatenChange}
+                    className="dark:bg-dark-900"
+                    />
+                    <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
+                        <ChevronDownIcon/>
+                    </span>
+                    </div>
+                </div>
+                <div>
+                    <Label>Kecamatan</Label>
+                    <div className="relative">
+                    <Select
+                    options={jsonSulut.data_wilayah[0].kecamatan.map((kecamatan: any) => ({
+                        id: kecamatan.nama_kecamatan,
+                        value: kecamatan.nama_kecamatan,
+                        label: kecamatan.nama_kecamatan
+                    }))}
+                    placeholder="Pilih Kecamatan"
+                    onChange={handleKecamatanChange}
+                    className="dark:bg-dark-900"
+                    />
+                    <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
+                        <ChevronDownIcon/>
+                    </span>
+                    </div>
+                </div>
+                <div>
+                    <Label>Desa</Label>
+                    <div className="relative">
+                    <Select
+                    options={jsonSulut.data_wilayah[0].kecamatan.flatMap((kecamatan: any) => 
+                        kecamatan.desa_dan_kelurahan.map((desa: any) => ({
+                            id: desa.nama, 
+                            value: desa.nama,
+                            label: desa.nama
+                        })))}
+                    placeholder="Pilih Desa"
+                    onChange={handleDesaChange}
+                    className="dark:bg-dark-900"
+                    />
+                    <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
+                        <ChevronDownIcon/>
+                    </span>
+                    </div>
+                </div>
+                <div>
+                    <Label>Skema</Label>
+                    <div className="relative">
+                    <Select
+                    options={optionsSkema}
+                    placeholder="Skema"
+                    onChange={handleSelectChange}
+                    className="dark:bg-dark-900"
+                    />
+                    <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
+                        <ChevronDownIcon/>
+                    </span>
+                    </div>
+                    {errors.skema && <p className="mt-1.5 text-xs text-error-500">{errors.skema.message}</p>}
+                </div>
+                    <div>
+                        <Label> Luas Areal</Label>
+                        <Input
+                            id="luas_areal"
+                            name="luas_areal"
+                            placeholder="Masukkan Luas Areal"
+                            
+                            // 🚨 Passing register dan error 🚨
+                            register={register} 
+                            errorMessage={errors.luas_areal?.message} 
+                        />
+                    </div>
+                    <div>
+                        <Label> Jumlah Anggota</Label>
+                        <Input
+                            id="jumlah_anggota"
+                            name="jumlah_anggota"
+                            placeholder="Jumlah Anggota"
+                            
+                            // 🚨 Passing register dan error 🚨
+                            register={register} 
+                            errorMessage={errors.jumlah_anggota?.message} 
+                        />
+                    </div>
+                    <div>
+                        <Label> Nama Ketua </Label>
+                        <Input
+                            id="nama_ketua"
+                            name="nama_ketua"
+                            placeholder="Nama Ketua"
+                            
+                            // 🚨 Passing register dan error 🚨
+                            register={register} 
+                            errorMessage={errors.nama_ketua?.message} 
+                        />
+                    </div>
+                    <div>
+                        <Label> Nama KPH</Label>
+                        <Input
+                            id="nama_kph"
+                            name="nama_kph"
+                            placeholder="Nama KPH"
+                            
+                            // 🚨 Passing register dan error 🚨
+                            register={register} 
+                            errorMessage={errors.nama_kph?.message} 
+                        />
+                    </div>
+                    <div>
+                        <Label> Dokumen Hasil Produk </Label>
+                        <FileInput
+                            onChange={handleFileHasilProduk}
+                        />
+                        {/* Tampilkan error jika ada */}
+                        {errors.dokumen_hasil_produk && <p className="text-error-500">{errors.dokumen_hasil_produk.message}</p>}
+                    </div>
+                    <div>
+                        <Label> Dokumen Fasilitas </Label>
+                        <FileInput
+                            onChange={handleFileFasilitas}
+                        />
+                    </div>
+                    <div>
+                        <Label> Dokumen SK </Label>
+                        <FileInput
+                            onChange={handleFileSk}
+                        />
+                    </div>
+                    <div>
+                        <Label> Galeri Foto </Label>
+                        <MultiFileInput
+                            onChange={handleFileGalery}
+                        />
+                        {errors.galeri_foto && <p className="text-error-500">{errors.galeri_foto.message}</p>}
+                        {/* {selectedFileNames.length > 0 && (
+                            <div className="mt-3 p-2 border border-dashed border-gray-300 rounded-lg">
+                                <p className="font-medium text-sm mb-1 text-gray-700">File Terpilih ({selectedFileNames.length}):</p>
+                                <ul className="list-disc list-inside text-xs text-gray-600">
+                                    {selectedFileNames.map((name, index) => (
+                                        <li key={index} className="truncate">{name}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )} */}
+                    </div>
+                    <div>
+                        <Label> Penyuluh </Label>
+                        <Input
+                            id="penyuluh"
+                            name="penyuluh"
+                            placeholder="Penyuluh"
+                            
+                            // 🚨 Passing register dan error 🚨
+                            register={register} 
+                            errorMessage={errors.penyuluh?.message} 
+                        />
+                    </div>
+                    <div className="mb-6 flex justify-end">
+                        <Button type="submit" disabled={isSubmitting}>
+                            {isSubmitting ? 'Memproses...' : 'Simpan Data'}
+                        </Button>
+                    </div>
+                </div>
+            </form>
+        </div>
   );
 
 }
