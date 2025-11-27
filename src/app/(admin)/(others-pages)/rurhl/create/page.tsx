@@ -1,10 +1,11 @@
 import ComponentCard from "@/components/common/ComponentCard";
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
-import FormCreate from "@/components/data-fauna/FormCreate";
+import FormCreate from "@/components/rurhl/FormCreate";
 import Button from "@/components/ui/button/Button";
 import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Next.js Basic Table | TailAdmin - Next.js Dashboard Template",
@@ -16,9 +17,9 @@ export const metadata: Metadata = {
 export default function BasicTables() {
   return (
     <div>
-      <PageBreadcrumb pageTitle="Data RURHL" />
+      <PageBreadcrumb pageTitle="Data RHL" />
       <div className="space-y-6">
-        <ComponentCard title="Tambah Data RURHL">
+        <ComponentCard title="Tambah Data RHL">
 
           <div className="mb-6 flex justify-end">
             <Link href="/rurhl">
@@ -27,6 +28,7 @@ export default function BasicTables() {
           </div>
 
           <div>
+            <Toaster position="top-center" />
             <FormCreate />
           </div>
           

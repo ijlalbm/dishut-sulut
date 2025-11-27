@@ -48,7 +48,7 @@ const navItems: NavItem[] = [
     path: "/data-fauna",
   },
   {
-    name: "RURHL",
+    name: "RHL",
     icon: <TableIcon />,
     path: "/rurhl",
   },
