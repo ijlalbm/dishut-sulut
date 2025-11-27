@@ -14,7 +14,7 @@ export default function FormCreate() {
     { value: "template", label: "Template" },
     { value: "development", label: "Development" },
   ];
-  const handleSelectChange = (value: string) => {
+  const handleSelectChange = (value: string | number) => {
     console.log("Selected value:", value);
   };
   return (

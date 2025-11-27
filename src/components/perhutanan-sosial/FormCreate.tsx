@@ -28,24 +28,24 @@ export default function FormCreate() {
     const [selectedDesa, setSelectedDesa] = useState<string>("");
 
     // Handler kabupaten
-    const handleKabupatenChange = (value: string) => {
-        setSelectedKabupaten(value);
+    const handleKabupatenChange = (value: string | number ) => {
+        setSelectedKabupaten(String(value));
         setSelectedKecamatan(""); // reset kecamatan
         setSelectedDesa("");      // reset desa
-        setValue("kabupaten_kota", value, { shouldValidate: true });
+        setValue("kabupaten_kota", String(value), { shouldValidate: true });
     };
 
     // Handler kecamatan
-    const handleKecamatanChange = (value: string) => {
-        setSelectedKecamatan(value);
+    const handleKecamatanChange = (value: string | number) => {
+        setSelectedKecamatan(String(value));
         setSelectedDesa(""); // reset desa
-        setValue("kecamatan", value, { shouldValidate: true });
+        setValue("kecamatan", String(value), { shouldValidate: true });
     };
 
     // Handler desa
-    const handleDesaChange = (value: string) => {
-        setSelectedDesa(value);
-        setValue("desa", value, { shouldValidate: true });
+    const handleDesaChange = (value: string | number) => {
+        setSelectedDesa(String(value));
+        setValue("desa", String(value), { shouldValidate: true });
     };
   
     const { 
@@ -229,8 +229,8 @@ export default function FormCreate() {
     //     }
     // };
 
-    const handleSelectChange = (value: string) => {
-        setValue("skema" as keyof PerhutananSosialForm, value, { shouldValidate: true });
+    const handleSelectChange = (value: string | number) => {
+        setValue("skema" as keyof PerhutananSosialForm, String(value), { shouldValidate: true });
     }
 
   return (

@@ -40,7 +40,7 @@ export default function FormCreate() {
     },
   });
 
-  const [selectedKelompok, setSelectedKelompok] = useState<string>("");
+  const [selectedKelompok, setSelectedKelompok] = useState<string | number>("");
 
   const onSubmit = async (data: FaunaForm) => {
     try {
@@ -110,9 +110,9 @@ export default function FormCreate() {
         <Select
           options={kelompokOptions}
           placeholder="Pilih kelompok fauna"
-          onChange={(val) => {
+          onChange={(val: string | number) => {
             setSelectedKelompok(val);
-            setValue("kelompok_fauna", val);
+            setValue("kelompok_fauna", String(val));
           }}
           
         />

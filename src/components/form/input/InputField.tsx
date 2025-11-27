@@ -14,6 +14,9 @@ interface InputProps {
   max?: string;
   step?: number;
   disabled?: boolean;
+  success?: boolean;
+  error?: boolean;
+  hint?: string;
 
   // ⭐ Tambahan penting untuk Zod + RHF
   register?: any;           // register("field")

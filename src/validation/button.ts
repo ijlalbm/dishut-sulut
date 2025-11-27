@@ -17,7 +17,8 @@ export const ButtonPropsSchema = z.object({
     endIcon: z.any().optional(),
 
     // onClick: Fungsi, divalidasi sebagai fungsi
-    onClick: z.function().args().returns(z.void()).optional(),
+    // onClick: z.function().implement.returns(z.void()).optional(),
+    onClick: z.function().optional(), 
 
     // disabled: Boolean
     disabled: z.boolean().optional(),
