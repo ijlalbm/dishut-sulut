@@ -42,6 +42,7 @@ function parseForm(req: NextApiRequest): Promise<{ fields: Fields; files: Files;
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     if (req.method === "GET") {
+      res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
       const [rows] = await pool.query("SELECT * FROM fauna");
       return res.status(200).json(rows);
     }
