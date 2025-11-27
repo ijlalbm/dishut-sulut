@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     if (req.method === "GET") {
       const [rows] = await pool.query(
-        "SELECT id, email, username, name, status FROM users ORDER BY id DESC"
+        "SELECT * FROM users ORDER BY id DESC"
       );
       return res.status(200).json(rows);
     }
