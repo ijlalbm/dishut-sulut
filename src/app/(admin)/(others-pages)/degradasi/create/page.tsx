@@ -5,6 +5,7 @@ import Button from "@/components/ui/button/Button";
 import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
+import {Toaster} from "sonner";
 
 export const metadata: Metadata = {
   title: "Next.js Basic Table | TailAdmin - Next.js Dashboard Template",
@@ -27,6 +28,7 @@ export default function BasicTables() {
           </div>
 
           <div>
+            <Toaster position="top-center" />
             <FormCreate />
           </div>
           
