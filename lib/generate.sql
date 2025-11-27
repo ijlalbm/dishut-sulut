@@ -131,3 +131,15 @@ CREATE TABLE pembibitan (
     jumlah_siap_tanam INT, -- Jumlah bibit yang sudah siap tanam
     penyuluh_id INT,
 );
+
+CREATE TABLE user (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    no_hp VARCHAR(255) NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    name VARCHAR(255) DEFAULT NULL,
+    status TINYINT(1) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);

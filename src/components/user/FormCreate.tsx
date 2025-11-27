@@ -1,122 +1,89 @@
 "use client";
-import React, { useState } from 'react';
-import Button from '../ui/button/Button';
-import Label from '../form/Label';
-import Input from '../form/input/InputField';
-import Select from '../form/Select';
-import { ChevronDownIcon, EyeCloseIcon, EyeIcon, TimeIcon } from '../../icons';
-import DatePicker from '@/components/form/date-picker';
+import React from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { UserSchema } from "./data/schema";
+import Button from "../ui/button/Button";
+import Label from "../form/Label";
+import Input from "../form/input/InputField";
+import Select from "../form/Select";
+
+import {toast} from "sonner";
+
+type UserForm = z.infer<typeof UserSchema>;
 
 export default function FormCreate() {
-  const [showPassword, setShowPassword] = useState(false);
-  const options = [
-    { value: "marketing", label: "Marketing" },
-    { value: "template", label: "Template" },
-    { value: "development", label: "Development" },
-  ];
-  const handleSelectChange = (value: string) => {
-    console.log("Selected value:", value);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<UserForm>({
+    resolver: zodResolver(UserSchema),
+    defaultValues: {
+      username: "",
+      email: "",
+      no_hp: "",
+      password: "",
+      name: "",
+      status: 1,
+    },
+  });
+
+  const onSubmit = async (data: UserForm) => {
+    try {
+      const res = await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error(res.statusText || "Request failed");
+          toast.success("Data berhasil ditambahkan");
+          // reset();
+      } catch (error: any) {
+          toast.error(error.message || "Gagal menambahkan data");
+      }
   };
+
   return (
-    
-      <div className="space-y-6">
-        <div>
-          <Label>Input</Label>
-          <Input type="text" />
-        </div>
-        <div>
-          <Label>Input with Placeholder</Label>
-          <Input type="text" placeholder="info@gmail.com" />
-        </div>
-        <div>
-          <Label>Select Input</Label>
-          <div className="relative">
-            <Select
-            options={options}
-            placeholder="Select an option"
-            onChange={handleSelectChange}
-            className="dark:bg-dark-900"
-          />
-             <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
-              <ChevronDownIcon/>
-            </span>
-          </div>
-        </div>
-        <div>
-          <Label>Password Input</Label>
-          <div className="relative">
-            <Input
-              type={showPassword ? "text" : "password"}
-              placeholder="Enter your password"
-            />
-            <button
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute z-30 -translate-y-1/2 cursor-pointer right-4 top-1/2"
-            >
-              {showPassword ? (
-                <EyeIcon className="fill-gray-500 dark:fill-gray-400" />
-              ) : (
-                <EyeCloseIcon className="fill-gray-500 dark:fill-gray-400" />
-              )}
-            </button>
-          </div>
-        </div>
-
-        <div>
-          <DatePicker
-            id="date-picker"
-            label="Date Picker Input"
-            placeholder="Select a date"
-            onChange={(dates, currentDateString) => {
-              // Handle your logic
-              console.log({ dates, currentDateString });
-            }}
-          />
-        </div>
-
-        <div>
-          <Label htmlFor="tm">Time Picker Input</Label>
-          <div className="relative">
-            <Input
-              type="time"
-              id="tm"
-              name="tm"
-              onChange={(e) => console.log(e.target.value)}
-            />
-            <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
-              <TimeIcon />
-            </span>
-          </div>
-        </div>
-        <div>
-          <Label htmlFor="tm">Input with Payment</Label>
-          <div className="relative">
-            <Input
-              type="text"
-              placeholder="Card number"
-              className="pl-[62px]"
-            />
-            <span className="absolute left-0 top-1/2 flex h-11 w-[46px] -translate-y-1/2 items-center justify-center border-r border-gray-200 dark:border-gray-800">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle cx="6.25" cy="10" r="5.625" fill="#E80B26" />
-                <circle cx="13.75" cy="10" r="5.625" fill="#F59D31" />
-                <path
-                  d="M10 14.1924C11.1508 13.1625 11.875 11.6657 11.875 9.99979C11.875 8.33383 11.1508 6.8371 10 5.80713C8.84918 6.8371 8.125 8.33383 8.125 9.99979C8.125 11.6657 8.84918 13.1625 10 14.1924Z"
-                  fill="#FC6020"
-                />
-              </svg>
-            </span>
-          </div>
-        </div>
-          <div className="mb-6 flex justify-end">
-            <Button variant="primary">Simpan</Button>
-          </div>
+    <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <Label htmlFor="username">Username</Label>
+        <Input type="text" id="username" name="username" register={register} errorMessage={errors.username?.message} />
       </div>
+      <div>
+        <Label htmlFor="email">Email</Label>
+        <Input type="email" id="email" name="email" register={register} errorMessage={errors.email?.message} />
+      </div>
+      <div>
+        <Label htmlFor="no_hp">No HP</Label>
+        <Input type="text" id="no_hp" name="no_hp" register={register} errorMessage={errors.no_hp?.message} />
+      </div>
+      <div>
+        <Label htmlFor="password">Password</Label>
+        <Input type="password" id="password" name="password" register={register} errorMessage={errors.password?.message} />
+      </div>
+      <div>
+        <Label htmlFor="name">Nama</Label>
+        <Input type="text" id="name" name="name" register={register} errorMessage={errors.name?.message} />
+      </div>
+      <div>
+        <Label htmlFor="status">Status</Label>
+        <Select
+          name="status"
+          options={[
+            { value: 1, label: "Aktif" },
+            { value: 0, label: "Nonaktif" },
+          ]}
+          register={register}
+          registerOptions={{ valueAsNumber: true }}
+          errorMessage={errors.status?.message}
+        />
+      </div>
+      <div className="mb-6 flex justify-end">
+        <Button variant="primary" type="submit" disabled={isSubmitting}>Simpan</Button>
+      </div>
+    </form>
   );
 }

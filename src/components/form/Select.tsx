@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 
 interface Option {
-  value: string;
+  value: string | number;
   label: string;
 }
 
 interface SelectProps {
   options: Option[];
   placeholder?: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string | number) => void;
   className?: string;
-  defaultValue?: string;
+  defaultValue?: string | number;
+  name?: string;
+  register?: any;
+  registerOptions?: object;
+  errorMessage?: string;
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -19,45 +23,45 @@ const Select: React.FC<SelectProps> = ({
   onChange,
   className = "",
   defaultValue = "",
+  name,
+  register,
+  registerOptions,
+  errorMessage,
 }) => {
-  // Manage the selected value
-  const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
+  
+  // const [selectedValue, setSelectedValue] = useState<string | number>(defaultValue);
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    setSelectedValue(value);
-    onChange(value); // Trigger parent handler
-  };
+  // const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   const value = e.target.value;
+  //   setSelectedValue(value);
+  //   if (onChange) onChange(value);
+  // };
+
+  // Integrasi dengan RHF
+  const registrationProps = register && name ? register(name, registerOptions) : {};
 
   return (
-    <select
-      className={`h-11 w-full appearance-none rounded-lg border border-gray-300  px-4 py-2.5 pr-11 text-sm shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800 ${
-        selectedValue
-          ? "text-gray-800 dark:text-white/90"
-          : "text-gray-400 dark:text-gray-400"
-      } ${className}`}
-      value={selectedValue}
-      onChange={handleChange}
-    >
-      {/* Placeholder option */}
-      <option
-        value=""
-        disabled
-        className="text-gray-700 dark:bg-gray-900 dark:text-gray-400"
+    <div>
+      <select
+        name={name}
+        className={`h-11 w-full appearance-none rounded-lg border border-gray-300 px-4 py-2.5 pr-11 text-sm shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800 ${className}`}
+        defaultValue={defaultValue}
+        {...registrationProps}
+        // onChange={handleChange} ← Hapus jika pakai RHF
       >
-        {placeholder}
-      </option>
-      {/* Map over options */}
-      {options.map((option) => (
-        <option
-          key={option.value}
-          value={option.value}
-          className="text-gray-700 dark:bg-gray-900 dark:text-gray-400"
-        >
-          {option.label}
+        <option value="" disabled>
+          {placeholder}
         </option>
-      ))}
-    </select>
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+      {errorMessage && (
+        <span className="text-red-500 text-xs">{errorMessage}</span>
+      )}
+    </div>
   );
 };
 

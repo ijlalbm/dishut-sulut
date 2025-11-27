@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     if (req.method === "POST") {
-      const { email, username, password, name, status } = req.body ?? {};
+      const { email, username, password, no_hp, name, status } = req.body ?? {};
 
       if (!email || !username || !password) {
         return res.status(400).json({ error: "email, username and password are required" });
@@ -35,8 +35,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const hash = await bcrypt.hash(password, SALT_ROUNDS);
 
       const [result] = await pool.query(
-        "INSERT INTO users (email, username, password_hash, name, status) VALUES (?, ?, ?, ?, ?)",
-        [email, username, hash, name ?? null, status ?? false]
+        "INSERT INTO users (email, username, password_hash, no_hp, name, status) VALUES (?, ?, ?, ?, ?, ?)",
+        [email, username, hash, no_hp ?? null, name ?? null, status ?? false]
       );
 
       const insertId = (result as any).insertId;
