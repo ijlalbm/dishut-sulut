@@ -44,6 +44,12 @@ function isFormidableFile(file: any): file is FormidableFile {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
+
+    if (req.method === "GET") {
+      const [rows] = await pool.query("SELECT * FROM perhutanan_sosial");
+      return res.status(200).json(rows);
+    }
+
     if (req.method === "POST") {
       const { fields, files } = await parseForm(req);
       
