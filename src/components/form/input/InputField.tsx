@@ -33,6 +33,7 @@ const Input: FC<InputProps> = ({
   max,
   step,
   disabled = false,
+  
 
   // Tambahan untuk react-hook-form
   register,
@@ -73,7 +74,6 @@ const Input: FC<InputProps> = ({
         type={type}
         id={id}
         name={name}
-        registerOptions={registerOptions}
         placeholder={placeholder}
         onChange={mergedOnChange}
         min={min}
@@ -82,7 +82,6 @@ const Input: FC<InputProps> = ({
         disabled={disabled}
         className={inputClasses}
         {...registrationProps}
-        
       />
 
       {errorMessage && (
