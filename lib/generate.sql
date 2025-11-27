@@ -143,3 +143,46 @@ CREATE TABLE user (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+CREATE TABLE gis_layers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nama_layer VARCHAR(255) NOT NULL,
+    deskripsi TEXT NULL,
+    kategori VARCHAR(100) NULL,        -- misal: Batas Wilayah, Infrastruktur, dll
+    tipe_data VARCHAR(50) NOT NULL,    -- raster, vector, geojson, shp, tiff
+    skpd_id INT NULL,                  -- siapa pemilik datanya
+    is_published TINYINT(1) DEFAULT 0, -- apakah tampil di WebGIS
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE gis_files (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    layer_id INT NOT NULL,
+    file_name VARCHAR(255) NOT NULL,
+    file_path VARCHAR(255) NOT NULL,     -- lokasi file di server / storage
+    file_type VARCHAR(50) NOT NULL,      -- shp, geojson, zip, tiff, kml
+    file_size INT NULL,
+    versi INT DEFAULT 1,                 -- v1, v2, v3 ...
+    uploaded_by INT NULL,                -- id user yang upload
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_layer
+        FOREIGN KEY (layer_id)
+        REFERENCES gis_layers(id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE gis_styles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    layer_id INT NOT NULL,
+    style_name VARCHAR(255) NOT NULL,
+    style_type VARCHAR(50) NOT NULL,      -- sld, json, qml, css
+    style_content TEXT NOT NULL,          -- isi file / kode style
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_style_layer
+        FOREIGN KEY (layer_id)
+        REFERENCES gis_layers(id)
+        ON DELETE CASCADE
+);
