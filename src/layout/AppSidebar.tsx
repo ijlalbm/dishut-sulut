@@ -358,7 +358,7 @@ const AppSidebar: React.FC = () => {
                     <HorizontaLDots />
                   )}
                 </h2>
-                {renderMenuItems(othersItems, "others")}
+                {/* {renderMenuItems(othersItems, "others")} */}
               </div>
             )}
           </div>
