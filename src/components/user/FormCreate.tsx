@@ -25,9 +25,7 @@ export default function FormCreate() {
       username: "",
       email: "",
       no_hp: "",
-      password: "",
-      name: "",
-      status: 1,
+      password_hash: "",
     },
   });
 
@@ -60,9 +58,9 @@ export default function FormCreate() {
         <Label htmlFor="no_hp">No HP</Label>
         <Input type="text" id="no_hp" name="no_hp" register={register} errorMessage={errors.no_hp?.message} />
       </div>
-      <div>
+      <div>``
         <Label htmlFor="password">Password</Label>
-        <Input type="password" id="password" name="password" register={register} errorMessage={errors.password?.message} />
+        <Input type="password" id="password" name="password" register={register} errorMessage={errors.password_hash?.message} />
       </div>
       <div>
         <Label htmlFor="name">Nama</Label>
