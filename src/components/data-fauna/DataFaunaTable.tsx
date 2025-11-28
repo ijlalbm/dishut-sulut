@@ -69,7 +69,6 @@ export default function DataFaunaTable() {
                 <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">Pola Aktivitas</TableCell>
                 <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">Foto</TableCell>
                 <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">Wilayah KPH</TableCell>
-                <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">Status</TableCell>
                 <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-theme-xs dark:text-gray-400">Aksi</TableCell>
               </TableRow>
             </TableHeader>
@@ -108,20 +107,7 @@ export default function DataFaunaTable() {
                       )}
                     </TableCell>
                     <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">{row.wilayah_kph}</TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                      <Badge
-                        size="sm"
-                        color={
-                          row.status === "Active"
-                            ? "success"
-                            : row.status === "Pending"
-                            ? "warning"
-                            : "error"
-                        }
-                      >
-                        {row.status}
-                      </Badge>
-                    </TableCell>
+                    
                     <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
                       <Link href={`/data-fauna/${row.id}/edit`}>
                         <button

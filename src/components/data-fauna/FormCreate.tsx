@@ -9,7 +9,8 @@ import Label from "../form/Label";
 import Input from "../form/input/InputField";
 import FileInput from "../form/input/FileInput";
 import Select from "../form/Select";
-import {toast} from "sonner";
+import { toast } from "sonner";
+import { useAuth } from "@/hooks/useAuth";
 
 type FaunaForm = z.infer<typeof FaunaSchema>;
 
@@ -23,9 +24,10 @@ const kelompokOptions = [
 ];
 
 export default function FormCreate() {
-
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const { user, loading } = useAuth();
 
+  // Always call hooks at the top!
   const {
     register,
     handleSubmit,
@@ -36,7 +38,7 @@ export default function FormCreate() {
     defaultValues: {
       nama_lokal: "",
       nama_ilmiah: "",
-      penyuluh_id: undefined,
+      penyuluh_id: user?.id ?? undefined, // fallback if user is not ready
     },
   });
 
@@ -52,8 +54,8 @@ export default function FormCreate() {
       });
 
       if (selectedFile) {
-          formData.append("foto_file", selectedFile);
-        }
+        formData.append("foto_file", selectedFile);
+      }
 
       const res = await fetch("/api/fauna", {
         method: "POST",
@@ -61,15 +63,19 @@ export default function FormCreate() {
       });
       if (!res.ok) throw new Error(res.statusText || "Request failed");
 
-            toast.success("Data berhasil ditambahkan");
-            // reset();
-        } catch (error: any) {
-            toast.error(error.message || "Gagal menambahkan data");
-        }
+      toast.success("Data berhasil ditambahkan");
+      // reset();
+    } catch (error: any) {
+      toast.error(error.message || "Gagal menambahkan data");
+    }
   };
+
+  // Only render the form after loading is false
+  if (loading) return null;
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+      {/* ...form fields as before... */}
       <div>
         <Label htmlFor="nama_lokal">Nama Lokal</Label>
         <Input type="text" id="nama_lokal" name="nama_lokal" register={register} errorMessage={errors.nama_lokal?.message} />
@@ -88,8 +94,8 @@ export default function FormCreate() {
           type="number"
           id="latitude"
           name="latitude"
-          register={register} 
-          registerOptions= {{ valueAsNumber: true }}
+          register={register}
+          registerOptions={{ valueAsNumber: true }}
           errorMessage={errors.latitude?.message}
           step={0.00000001}
         />
@@ -100,8 +106,8 @@ export default function FormCreate() {
           type="number"
           id="longitude"
           name="longitude"
-          register={register} 
-          registerOptions= {{ valueAsNumber: true }}
+          register={register}
+          registerOptions={{ valueAsNumber: true }}
           errorMessage={errors.longitude?.message}
         />
       </div>
@@ -114,7 +120,6 @@ export default function FormCreate() {
             setSelectedKelompok(val);
             setValue("kelompok_fauna", String(val));
           }}
-          
         />
         {errors.kelompok_fauna && <span className="text-red-500 text-xs">{errors.kelompok_fauna.message}</span>}
       </div>
@@ -144,18 +149,11 @@ export default function FormCreate() {
             File terpilih: {selectedFile.name}
           </div>
         )}
-        {/* Tampilkan error jika ada */}
-            {errors.url_foto && <p className="text-error-500">{errors.url_foto.message}</p>}
-        </div>
-        <div>
+        {errors.url_foto && <p className="text-error-500">{errors.url_foto.message}</p>}
       </div>
       <div>
         <Label htmlFor="wilayah_kph">Wilayah KPH</Label>
         <Input type="text" id="wilayah_kph" name="wilayah_kph" register={register} errorMessage={errors.wilayah_kph?.message} />
-      </div>
-      <div>
-        <Label htmlFor="penyuluh_id">Penyuluh</Label>
-        <Input type="number" id="penyuluh_id" name="penyuluh_id" register={register} registerOptions={{ valueAsNumber: true }} errorMessage={errors.penyuluh_id?.message} />
       </div>
       <div className="mb-6 flex justify-end">
         <Button variant="primary" type="submit" disabled={isSubmitting}>Simpan</Button>

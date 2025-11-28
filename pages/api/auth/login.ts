@@ -31,7 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!isValid) return res.status(401).json({ error: "Invalid credentials" });
 
 
-    const token = signJwt({ user_id: user.id, email: user.email, username: username, name: user.name, role_id: user.role_id  }, null);
+    const token = signJwt({ sub: user.id, user_id: user.id, email: user.email, username: username, name: user.name, role_id: user.role_id  }, null);
 
     return res.status(200).json({
       token,

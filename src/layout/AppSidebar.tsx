@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState,useCallback } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
 import Image from "next/image";
@@ -28,135 +28,109 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
-  {
-    icon: <GridIcon />,
-    name: "Dashboard",
-    path: "/",
-  },
-  {
-    name: "Perhutanan Sosial",
-    icon: <TableIcon />,
-    path: "/perhutanan-sosial",
-  },
-  {
-    name: "Data Flora",
-    icon: <TableIcon />,
-    path: "/data-flora",
-  },
-  {
-    name: "Data Fauna",
-    icon: <TableIcon />,
-    path: "/data-fauna",
-  },
-  {
-    name: "RHL",
-    icon: <TableIcon />,
-    path: "/rurhl",
-  },
-  {
-    name: "Karhutla",
-    icon: <TableIcon />,
-    path: "/karhutla",
-  },
-  {
-    name: "Deforestasi",
-    icon: <TableIcon />,
-    path: "/deforestasi",
-  },
-  {
-    name: "Degradasi",
-    icon: <TableIcon />,
-    path: "/degradasi",
-  },
-  {
-    name: "Pembibitan",
-    icon: <TableIcon />,
-    path: "/pembibitan",
-  },
-  
+  { icon: <GridIcon />, name: "Dashboard", path: "/" },
+  { name: "Perhutanan Sosial", icon: <TableIcon />, path: "/perhutanan-sosial" },
+  { name: "Data Flora", icon: <TableIcon />, path: "/data-flora" },
+  { name: "Data Fauna", icon: <TableIcon />, path: "/data-fauna" },
+  { name: "RHL", icon: <TableIcon />, path: "/rurhl" },
+  { name: "Karhutla", icon: <TableIcon />, path: "/karhutla" },
+  { name: "Deforestasi", icon: <TableIcon />, path: "/deforestasi" },
+  { name: "Degradasi", icon: <TableIcon />, path: "/degradasi" },
+  { name: "Pembibitan", icon: <TableIcon />, path: "/pembibitan" },
 ];
 
-const masterDataItems: NavItem[]=[
-  {
-    icon: <UserCircleIcon />,
-    name: "User",
-    path: "/master/user",
-  },
-  {
-    icon: <UserCircleIcon />,
-    name: "Peta",
-    path: "/master/peta",
-  },
-]
+const masterDataItems: NavItem[] = [
+  { icon: <UserCircleIcon />, name: "User", path: "/master/user" },
+  { icon: <UserCircleIcon />, name: "Peta", path: "/master/peta" },
+];
 
 const othersItems: NavItem[] = [
-  {
-    icon: <CalenderIcon />,
-    name: "Calendar",
-    path: "/calendar",
-  },
-  {
-    icon: <UserCircleIcon />,
-    name: "User Profile",
-    path: "/profile",
-  },
-
-  {
-    name: "Forms",
-    icon: <ListIcon />,
-    subItems: [{ name: "Form Elements", path: "/form-elements", pro: false }],
-  },
-  {
-    name: "Tables",
-    icon: <TableIcon />,
-    subItems: [{ name: "Basic Tables", path: "/basic-tables", pro: false }],
-  },
-  {
-    name: "Pages",
-    icon: <PageIcon />,
-    subItems: [
+  { icon: <CalenderIcon />, name: "Calendar", path: "/calendar" },
+  { icon: <UserCircleIcon />, name: "User Profile", path: "/profile" },
+  { name: "Forms", icon: <ListIcon />, subItems: [{ name: "Form Elements", path: "/form-elements", pro: false }] },
+  { name: "Tables", icon: <TableIcon />, subItems: [{ name: "Basic Tables", path: "/basic-tables", pro: false }] },
+  { name: "Pages", icon: <PageIcon />, subItems: [
       { name: "Blank Page", path: "/blank", pro: false },
       { name: "404 Error", path: "/error-404", pro: false },
-    ],
-  },
-  {
-    icon: <PieChartIcon />,
-    name: "Charts",
-    subItems: [
+    ] },
+  { icon: <PieChartIcon />, name: "Charts", subItems: [
       { name: "Line Chart", path: "/line-chart", pro: false },
       { name: "Bar Chart", path: "/bar-chart", pro: false },
-    ],
-  },
-  {
-    icon: <BoxCubeIcon />,
-    name: "UI Elements",
-    subItems: [
+    ] },
+  { icon: <BoxCubeIcon />, name: "UI Elements", subItems: [
       { name: "Alerts", path: "/alerts", pro: false },
       { name: "Avatar", path: "/avatars", pro: false },
       { name: "Badge", path: "/badge", pro: false },
       { name: "Buttons", path: "/buttons", pro: false },
       { name: "Images", path: "/images", pro: false },
       { name: "Videos", path: "/videos", pro: false },
-    ],
-  },
-  {
-    icon: <PlugInIcon />,
-    name: "Authentication",
-    subItems: [
+    ] },
+  { icon: <PlugInIcon />, name: "Authentication", subItems: [
       { name: "Sign In", path: "/signin", pro: false },
       { name: "Sign Up", path: "/signup", pro: false },
-    ],
-  },
+    ] },
 ];
 
 const AppSidebar: React.FC = () => {
+  // All hooks at the top, before any return
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
   const pathname = usePathname();
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+
+  const [openSubmenu, setOpenSubmenu] = useState<{
+    type: "main" | "others" | "masters";
+    index: number;
+  } | null>(null);
+  const [subMenuHeight, setSubMenuHeight] = useState<Record<string, number>>({});
+  const subMenuRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  const isActive = useCallback((path: string) => path === pathname, [pathname]);
+
+  useEffect(() => {
+    let submenuMatched = false;
+    ["main", "others"].forEach((menuType) => {
+      const items = menuType === "main" ? navItems : othersItems;
+      items.forEach((nav, index) => {
+        if (nav.subItems) {
+          nav.subItems.forEach((subItem) => {
+            if (isActive(subItem.path)) {
+              setOpenSubmenu({ type: menuType as "main" | "others", index });
+              submenuMatched = true;
+            }
+          });
+        }
+      });
+    });
+    if (!submenuMatched) setOpenSubmenu(null);
+  }, [pathname, isActive]);
+
+  useEffect(() => {
+    if (openSubmenu !== null) {
+      const key = `${openSubmenu.type}-${openSubmenu.index}`;
+      if (subMenuRefs.current[key]) {
+        setSubMenuHeight((prevHeights) => ({
+          ...prevHeights,
+          [key]: subMenuRefs.current[key]?.scrollHeight || 0,
+        }));
+      }
+    }
+  }, [openSubmenu]);
+
+  const handleSubmenuToggle = (index: number, menuType: "main" | "others" | "masters") => {
+    setOpenSubmenu((prevOpenSubmenu) => {
+      if (prevOpenSubmenu && prevOpenSubmenu.type === menuType && prevOpenSubmenu.index === index) {
+        return null;
+      }
+      return { type: menuType, index };
+    });
+  };
+
+  // Only render sidebar after loading is false
+  if (loading) return null;
 
   const renderMenuItems = (
     navItems: NavItem[],
-    menuType: "main" | "others" | "masters"  
+    menuType: "main" | "others" | "masters"
   ) => (
     <ul className="flex flex-col gap-4">
       {navItems.map((nav, index) => (
@@ -280,70 +254,6 @@ const AppSidebar: React.FC = () => {
     </ul>
   );
 
-  const [openSubmenu, setOpenSubmenu] = useState<{
-    type: "main" | "others" | "masters";
-    index: number;
-  } | null>(null);
-  const [subMenuHeight, setSubMenuHeight] = useState<Record<string, number>>(
-    {}
-  );
-  const subMenuRefs = useRef<Record<string, HTMLDivElement | null>>({});
-
-  // const isActive = (path: string) => path === pathname;
-   const isActive = useCallback((path: string) => path === pathname, [pathname]);
-
-  useEffect(() => {
-    // Check if the current path matches any submenu item
-    let submenuMatched = false;
-    ["main", "others"].forEach((menuType) => {
-      const items = menuType === "main" ? navItems : othersItems;
-      items.forEach((nav, index) => {
-        if (nav.subItems) {
-          nav.subItems.forEach((subItem) => {
-            if (isActive(subItem.path)) {
-              setOpenSubmenu({
-                type: menuType as "main" | "others",
-                index,
-              });
-              submenuMatched = true;
-            }
-          });
-        }
-      });
-    });
-
-    // If no submenu item matches, close the open submenu
-    if (!submenuMatched) {
-      setOpenSubmenu(null);
-    }
-  }, [pathname,isActive]);
-
-  useEffect(() => {
-    // Set the height of the submenu items when the submenu is opened
-    if (openSubmenu !== null) {
-      const key = `${openSubmenu.type}-${openSubmenu.index}`;
-      if (subMenuRefs.current[key]) {
-        setSubMenuHeight((prevHeights) => ({
-          ...prevHeights,
-          [key]: subMenuRefs.current[key]?.scrollHeight || 0,
-        }));
-      }
-    }
-  }, [openSubmenu]);
-
-  const handleSubmenuToggle = (index: number, menuType: "main" | "others" | "masters") => {
-    setOpenSubmenu((prevOpenSubmenu) => {
-      if (
-        prevOpenSubmenu &&
-        prevOpenSubmenu.type === menuType &&
-        prevOpenSubmenu.index === index
-      ) {
-        return null;
-      }
-      return { type: menuType, index };
-    });
-  };
-
   return (
     <aside
       className={`fixed mt-16 flex flex-col lg:mt-0 top-0 px-5 left-0 bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 h-screen transition-all duration-300 ease-in-out z-50 border-r border-gray-200 
@@ -432,23 +342,6 @@ const AppSidebar: React.FC = () => {
               </div>
             )}
 
-            {/* <div className="">
-              <h2
-                className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
-                  !isExpanded && !isHovered
-                    ? "lg:justify-center"
-                    : "justify-start"
-                }`}
-              >
-                {isExpanded || isHovered || isMobileOpen ? (
-                  "Master Data"
-                ) : (
-                  <HorizontaLDots />
-                )}
-              </h2>
-              {renderMenuItems(masterDataItems, "masters")}
-            </div> */}
-
             {/* Tampilkan Others hanya jika user.role_id === 1 */}
             {user?.role_id === 1 && (
               <div className="">
@@ -468,23 +361,6 @@ const AppSidebar: React.FC = () => {
                 {renderMenuItems(othersItems, "others")}
               </div>
             )}
-            
-            {/* <div className="">
-              <h2
-                className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
-                  !isExpanded && !isHovered
-                    ? "lg:justify-center"
-                    : "justify-start"
-                }`}
-              >
-                {isExpanded || isHovered || isMobileOpen ? (
-                  "Others"
-                ) : (
-                  <HorizontaLDots />
-                )}
-              </h2>
-              {renderMenuItems(othersItems, "others")}
-            </div> */}
           </div>
         </nav>
         {/* {isExpanded || isHovered || isMobileOpen ? <SidebarWidget /> : null} */}

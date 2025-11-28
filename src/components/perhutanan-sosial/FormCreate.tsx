@@ -28,7 +28,9 @@ export default function FormCreate() {
     const [selectedKecamatan, setSelectedKecamatan] = useState<string>("");
     const [selectedDesa, setSelectedDesa] = useState<string>("");
 
-    const {user} = useAuth();
+    const {user, loading} = useAuth();
+
+    if (loading) return null; 
 
     // Handler kabupaten
     const handleKabupatenChange = (value: string | number ) => {
@@ -68,7 +70,7 @@ export default function FormCreate() {
             desa: "",
             kecamatan: "",
             kabupaten_kota: "",
-            penyuluh_id: user?.user_id
+            penyuluh_id: user?.id
         }
     });
 

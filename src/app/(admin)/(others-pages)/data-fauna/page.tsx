@@ -1,4 +1,4 @@
-import DataFloraTable from "@/components/data-flora/DataFloraTable";
+import DataFloraTable from "@/components/data-fauna/DataFaunaTable";
 import ComponentCard from "@/components/common/ComponentCard";
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import Button from "@/components/ui/button/Button";
