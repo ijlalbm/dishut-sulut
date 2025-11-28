@@ -10,6 +10,7 @@ interface User {
   email: string;
   password_hash: string;
   name: string | null;
+  role_id: number;
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -19,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (!username || !password) return res.status(400).json({ error: "Email and username required" });
 
   try {
-    const [rows] = await pool.query("SELECT id, email, password_hash, name FROM users WHERE username = ?", [username]);
+    const [rows] = await pool.query("SELECT id, email, password_hash, name, role_id FROM users WHERE username = ?", [username]);
     const users = rows as User[];
 
     if (users.length === 0) return res.status(401).json({ error: "Invalid credentials" });
@@ -29,7 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (!isValid) return res.status(401).json({ error: "Invalid credentials" });
 
-    const token = signJwt({ sub: user.id, email: user.email, username: username, name: user.name  }, null);
+    const token = signJwt({ sub: user.id, email: user.email, username: username, name: user.name, role_id: user.role_id  }, null);
 
     return res.status(200).json({
       token,
