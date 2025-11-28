@@ -98,7 +98,7 @@ export default function FormCreate() {
         <Input type="text" id="status_endemik_langka" name="status_endemik_langka" register={register} errorMessage={errors.status_endemik_langka?.message}  />
       </div>
       <div>
-        <Label htmlFor="url_foto">Foto (URL atau Upload)</Label>
+        <Label htmlFor="url_foto">Upload Foto</Label>
         <FileInput
           onChange={e => setSelectedFile(e.target.files?.[0] ?? null)}
         />
@@ -126,7 +126,7 @@ export default function FormCreate() {
         <Input type="text" id="wilayah_kph" name="wilayah_kph" register={register} errorMessage={errors.wilayah_kph?.message} />
       </div>
       <div>
-        <Label htmlFor="penyuluh_id">ID Penyuluh</Label>
+        <Label htmlFor="penyuluh_id">Penyuluh</Label>
         <Input type="number" id="penyuluh_id" name="penyuluh_id" register={register} registerOptions={{ valueAsNumber: true }} errorMessage={errors.penyuluh_id?.message} />
       </div>
       <div className="mb-6 flex justify-end">

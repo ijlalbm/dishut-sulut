@@ -106,7 +106,7 @@ export default function FormCreate() {
         <Input type="text" id="akses_ke_lokasi" name="akses_ke_lokasi" register={register} errorMessage={errors.akses_ke_lokasi?.message} />
       </div>
       <div>
-        <Label htmlFor="penyuluh_id">ID Penyuluh</Label>
+        <Label htmlFor="penyuluh_id">Penyuluh</Label>
         <Input type="number" id="penyuluh_id" name="penyuluh_id" register={register} registerOptions={{ valueAsNumber: true }} errorMessage={errors.penyuluh_id?.message} />
       </div>
       <div className="mb-6 flex justify-end">

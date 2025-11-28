@@ -7,6 +7,7 @@ type AuthUser = {
   email?: string;
   username?: string;
   role_id?: number;
+  user_id?: number;
   // tambahkan field lain jika perlu
 };
 

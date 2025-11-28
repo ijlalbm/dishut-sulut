@@ -153,7 +153,7 @@ export default function FormCreate() {
         />
       </div>
       <div>
-        <Label htmlFor="penyuluh_id">ID Penyuluh</Label>
+        <Label htmlFor="penyuluh_id">Penyuluh</Label>
         <Input
           type="number"
           id="penyuluh_id"

@@ -16,9 +16,9 @@ export const metadata: Metadata = {
 export default function BasicTables() {
   return (
     <div>
-      <PageBreadcrumb pageTitle="Data RURHL" />
+      <PageBreadcrumb pageTitle="Data RHL" />
       <div className="space-y-6">
-        <ComponentCard title="Tabel Data RURHL">
+        <ComponentCard title="Tabel Data RHL">
           <div className="mb-6 flex justify-end">
             <Link href="/rurhl/create">
               <Button variant="primary">

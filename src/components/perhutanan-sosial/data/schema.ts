@@ -74,7 +74,7 @@ export const PerhutananSosialSchema = z.object({
         z.string().nullable(), // Jika Anda juga ingin mengizinkan string (URL/path) dari data yang sudah ada
         z.undefined()
     ]).nullable().optional(),
-    penyuluh: z.string().max(255).nullable().optional(),
+    penyuluh_id: z.number().int().positive().nullable().optional(),
     galeri_foto: z.array(z.instanceof(File)).optional(),
 });
 

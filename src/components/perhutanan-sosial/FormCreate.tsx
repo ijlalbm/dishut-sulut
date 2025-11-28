@@ -18,6 +18,7 @@ import FileInputExample from "../form/form-elements/FileInputExample";
 import jsonSulut from "./data/sulut.json"
 
 import {toast} from "sonner";
+import { useAuth } from "@/hooks/useAuth";
 
 
 export default function FormCreate() {
@@ -26,6 +27,8 @@ export default function FormCreate() {
     const [selectedKabupaten, setSelectedKabupaten] = useState<string>("");
     const [selectedKecamatan, setSelectedKecamatan] = useState<string>("");
     const [selectedDesa, setSelectedDesa] = useState<string>("");
+
+    const {user} = useAuth();
 
     // Handler kabupaten
     const handleKabupatenChange = (value: string | number ) => {
@@ -64,7 +67,8 @@ export default function FormCreate() {
             luas_areal: "",
             desa: "",
             kecamatan: "",
-            kabupaten_kota: ""
+            kabupaten_kota: "",
+            penyuluh_id: user?.user_id
         }
     });
 
@@ -428,7 +432,7 @@ export default function FormCreate() {
                         />
                     </div>
                     <div>
-                        <Label> Dokumen Hasil Produk </Label>
+                        <Label> Daftar Hasil Produk Kelompok </Label>
                         <FileInput
                             onChange={handleFileHasilProduk}
                         />
@@ -436,7 +440,7 @@ export default function FormCreate() {
                         {errors.dokumen_hasil_produk && <p className="text-error-500">{errors.dokumen_hasil_produk.message}</p>}
                     </div>
                     <div>
-                        <Label> Dokumen Fasilitas </Label>
+                        <Label> Daftar Fasilitas </Label>
                         <FileInput
                             onChange={handleFileFasilitas}
                         />
@@ -463,18 +467,6 @@ export default function FormCreate() {
                                 </ul>
                             </div>
                         )} */}
-                    </div>
-                    <div>
-                        <Label> Penyuluh </Label>
-                        <Input
-                            id="penyuluh"
-                            name="penyuluh"
-                            placeholder="Penyuluh"
-                            
-                            // 🚨 Passing register dan error 🚨
-                            register={register} 
-                            errorMessage={errors.penyuluh?.message} 
-                        />
                     </div>
                     <div className="mb-6 flex justify-end">
                         <Button type="submit" disabled={isSubmitting}>

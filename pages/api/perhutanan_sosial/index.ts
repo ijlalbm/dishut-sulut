@@ -70,7 +70,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         jumlah_anggota,
         nama_ketua,
         nama_kph,
-        penyuluh,
+        penyuluh_id,
       } = fields;
 
       // files
@@ -124,7 +124,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Insert into DB (adjust columns as your schema)
       const [result] = await pool.query(
         `INSERT INTO perhutanan_sosial
-        (nama_lembaga, nomor_sk, tanggal_sk, nama_kups, no_sk_kups, komoditas, jumlah_produksi, desa, kecamatan, kabupaten_kota, skema, luas_areal, jumlah_anggota, nama_ketua, nama_kph, dokumen_hasil_produk, dokumen_fasilitas, dokumen_sk, penyuluh, galeri_foto)
+        (nama_lembaga, nomor_sk, tanggal_sk, nama_kups, no_sk_kups, komoditas, jumlah_produksi, desa, kecamatan, kabupaten_kota, skema, luas_areal, jumlah_anggota, nama_ketua, nama_kph, dokumen_hasil_produk, dokumen_fasilitas, dokumen_sk, penyuluh_id, galeri_foto)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           nama_lembaga ?? null,
@@ -142,10 +142,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           jumlah_anggota ?? null,
           nama_ketua ?? null,
           nama_kph ?? null,
-          dokumen_hasil_produk_path,
-          dokumen_fasilitas_path,
-          dokumen_sk_path,
-          penyuluh ?? null,
+          dokumen_hasil_produk_path ?? null,
+          dokumen_fasilitas_path ?? null,
+          dokumen_sk_path ?? null,
+          penyuluh_id ?? null,
           galeri_foto_paths ? JSON.stringify(galeri_foto_paths) : null,
         ]
       );
