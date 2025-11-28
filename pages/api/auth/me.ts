@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const payload = verifyJwt<{ sub: number; email?: string }>(token);
     const userId = payload.sub;
-    const [rows] = await pool.query("SELECT id, email, name, created_at FROM users WHERE id = ?", [userId]);
+    const [rows] = await pool.query("SELECT id, email, name, role_id, created_at FROM users WHERE id = ?", [userId]);
     const users = rows as User[];
 
     if (!users.length) return res.status(404).json({ error: "User not found" });

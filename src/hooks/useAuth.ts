@@ -1,8 +1,17 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
+
+type AuthUser = {
+  name?: string;
+  email?: string;
+  username?: string;
+  role_id?: number;
+  // tambahkan field lain jika perlu
+};
+
 export function useAuth() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 

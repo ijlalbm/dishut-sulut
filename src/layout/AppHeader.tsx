@@ -82,7 +82,8 @@ const AppHeader: React.FC = () => {
             )}
             {/* Cross Icon */}
           </button>
-
+          
+          <button onClick={toggleApplicationMenu}>
           <Link href="/" className="lg:hidden">
             <Image
               width={32}
@@ -99,6 +100,7 @@ const AppHeader: React.FC = () => {
               alt="Logo"
             />
           </Link>
+          </button>
 
           {/* <button
             onClick={toggleApplicationMenu}

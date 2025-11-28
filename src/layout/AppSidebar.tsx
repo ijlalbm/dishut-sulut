@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState,useCallback } from "react";
+import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -151,6 +152,7 @@ const othersItems: NavItem[] = [
 const AppSidebar: React.FC = () => {
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
   const pathname = usePathname();
+  const { user } = useAuth();
 
   const renderMenuItems = (
     navItems: NavItem[],
@@ -410,7 +412,27 @@ const AppSidebar: React.FC = () => {
               {renderMenuItems(navItems, "main")}
             </div>
 
-            <div className="">
+            {/* Tampilkan Master Data hanya jika user.role_id === 1 */}
+            {user?.role_id === 1 && (
+              <div className="">
+                <h2
+                  className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
+                    !isExpanded && !isHovered
+                      ? "lg:justify-center"
+                      : "justify-start"
+                  }`}
+                >
+                  {isExpanded || isHovered || isMobileOpen ? (
+                    "Master Data"
+                  ) : (
+                    <HorizontaLDots />
+                  )}
+                </h2>
+                {renderMenuItems(masterDataItems, "masters")}
+              </div>
+            )}
+
+            {/* <div className="">
               <h2
                 className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
                   !isExpanded && !isHovered
@@ -425,9 +447,29 @@ const AppSidebar: React.FC = () => {
                 )}
               </h2>
               {renderMenuItems(masterDataItems, "masters")}
-            </div>
+            </div> */}
 
-            <div className="">
+            {/* Tampilkan Others hanya jika user.role_id === 1 */}
+            {user?.role_id === 1 && (
+              <div className="">
+                <h2
+                  className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
+                    !isExpanded && !isHovered
+                      ? "lg:justify-center"
+                      : "justify-start"
+                  }`}
+                >
+                  {isExpanded || isHovered || isMobileOpen ? (
+                    "Others"
+                  ) : (
+                    <HorizontaLDots />
+                  )}
+                </h2>
+                {renderMenuItems(othersItems, "others")}
+              </div>
+            )}
+            
+            {/* <div className="">
               <h2
                 className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
                   !isExpanded && !isHovered
@@ -442,7 +484,7 @@ const AppSidebar: React.FC = () => {
                 )}
               </h2>
               {renderMenuItems(othersItems, "others")}
-            </div>
+            </div> */}
           </div>
         </nav>
         {/* {isExpanded || isHovered || isMobileOpen ? <SidebarWidget /> : null} */}
