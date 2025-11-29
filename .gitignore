@@ -36,4 +36,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-public/uploads/
+public/uploads/fauna
+public/uploads/flora
+public/uploads/perhutanan_sosial
