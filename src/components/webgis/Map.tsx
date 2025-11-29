@@ -60,9 +60,7 @@ export default function LeafletMap() {
 
   const handleKmzFeature = (feature: any, layer: L.Layer) => {
     layer.on("click", () => {
-      // Ambil properti dari KML/GeoJSON
       const props = feature.properties || {};
-      // Tampilkan semua properti sebagai tabel
       const html = `
         <div>
           <b>Data KML:</b>
@@ -82,24 +80,28 @@ export default function LeafletMap() {
 
   return (
     <div className="w-full h-full rounded-xl overflow-hidden shadow-lg relative">
-      {/* Pilihan peta KMZ */}
+      {/* Sidebar floating di atas peta, ikut scroll */}
       <div
         style={{
           position: "absolute",
-          zIndex: 1000,
-          top: 16,
-          left: 16,
-          background: "rgba(255,255,255,0.95)",
-          padding: "8px 12px",
-          borderRadius: "8px",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
+          top: "32px",
+          left: "32px",
+          width: "320px",
+          zIndex: 1100,
+          background: "#fff",
+          borderRadius: "16px",
+          boxShadow: "0 4px 24px rgba(0,0,0,0.12)",
+          padding: "20px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "16px",
         }}
       >
-        <label className="text-xs mr-2">Pilih Peta:</label>
+        <label className="text-sm font-medium mb-1">Pilih Peta KMZ:</label>
         <select
           value={selectedKmz}
           onChange={e => setSelectedKmz(e.target.value)}
-          className="text-xs p-1 rounded border"
+          className="p-2 border rounded mb-2"
         >
           <option value="">- Pilih Peta -</option>
           {kmzFiles.map((file) => (
@@ -107,14 +109,16 @@ export default function LeafletMap() {
           ))}
         </select>
       </div>
+      {/* Map */}
       <MapContainer
         center={[0.6246932, 123.9750018]}
         zoom={9}
         className="w-full h-full"
+        style={{ zIndex: 1 }}
       >
         <TileLayer
-          attribution="© OpenStreetMap contributors"
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution="© Google Maps"
+          url="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
         />
 
         <Marker position={[0.6246932, 123.9750018]}>
@@ -124,6 +128,7 @@ export default function LeafletMap() {
         {/* GeoJSON dari KMZ pilihan */}
         {kmzGeoData && (
           <GeoJSON
+            key={selectedKmz}
             data={kmzGeoData}
             style={{ color: "#0078ff", weight: 2, fillOpacity: 0.2 }}
             onEachFeature={handleKmzFeature}
